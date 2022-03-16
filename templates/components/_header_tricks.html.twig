@@ -1,0 +1,10 @@
+<div class="row container-tricks-header">
+    <img class="img-fluid" src="{{ asset('assets/img/figure.jpg') }}" alt="">
+    <h2>{{ name }}</h2>
+    {% if editable == true %}
+    <div class="edit-tricks">
+        <a href="#"><i class="bi bi-pencil-fill"></i></a>
+        <a href="#"><i class="bi bi-trash-fill"></i></i></a>
+    </div>
+    {% endif %}
+</div>

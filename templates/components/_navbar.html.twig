@@ -1,0 +1,20 @@
+<header id="nav-container" class="container-fluid">
+    <div class="row">
+        <nav id="nav" class="col-12">
+            <h1 id="logo" class="py-2"><a href="{{ path('app_home') }}">Snowtricks</a></h1>
+            <div class="sub-nav">
+                <a href="{{ path('app_home') }}">Home</a>
+                <a href="{{ path('app_home') }}#trick-container">Tricks</a>
+                <a href="">Sign in</a>
+                <a href="">Sign up</a>
+                <!-- <a href="">Sign out</a> -->
+            </div>
+            <div class="sub-nav-mobile">                                        
+                <a href="{{ path('app_home') }}"><i class="bi bi-house-fill"></i></a>
+                <a href="{{ path('app_home') }}#trick-container"><i class="bi bi-bookmark"></i></a>
+                <a href=""><i class="bi bi-box-arrow-in-right"></i></a>
+                <!-- <a href=""><i class="bi bi-box-arrow-right"></i></a> -->
+            </div>
+        </nav>
+    </div>
+</header>
