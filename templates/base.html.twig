@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+    <script src="{{ asset('assets/js/bootstrap.min.js') }}" defer></script>
+    <script src="{{ asset('assets/js/bootstrap.bundle.min.js') }}" defer></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Major+Mono+Display&family=Ubuntu&display=swap" rel="stylesheet">
+    <title>{% block title %}Snowtricks{% endblock %}</title>
+</head>
+<body>
+    {% include "components/_navbar.html.twig" %}
+    <main class="container-fluid">
+        {% block body %}{% endblock %}
+    </main>
+    {% include "components/_footer.html.twig" %}
+</body>
+</html>

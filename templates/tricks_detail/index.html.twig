@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Slide{% endblock %}
+
+{% block body %}
+    
+    {% include "components/_header_tricks.html.twig" with {name: 'Slides', editable: true} %}
+
+    <div id="trick-detail-container" class="row flex-nowrap pt-5 pb-2">
+        {% for item in 1..10 %}
+            {% include "components/_card_tricks_detail.html.twig" with {editable: true} %}
+        {% endfor %}
+    </div>
+
+    {% include "components/_button_border.html.twig" with {name: 'Voir plus de médias'} %}
+
+    <div class="container pt-4">
+        <div class="row">
+            <div class="col-12 pb-4">
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident exercitationem expedita saepe illum cupiditate quo minus consectetur, amet molestiae! Reprehenderit natus minima magni voluptatibus explicabo. Consequatur dicta nisi in? Ratione.
+                Quibusdam nemo ipsam saepe impedit commodi ex obcaecati fugiat iusto quis voluptatum? Sit eum, voluptas culpa vel suscipit quod iusto doloremque, id sequi, consequuntur odio magnam quidem aliquam! Beatae, facere.
+                Dolorum architecto cumque quibusdam id deleniti, voluptatum corrupti nesciunt rem amet dicta molestias nisi ullam laborum eaque. Harum omnis, vero culpa perspiciatis, laboriosam, hic error ratione doloribus quis accusantium aut.
+                Laboriosam molestias quae quod aliquid maxime soluta assumenda quia. Nulla autem reprehenderit quasi earum nisi sit, aperiam hic, magnam recusandae totam officia reiciendis odit aspernatur incidunt quod consectetur sint error!
+                Commodi, non reprehenderit. Obcaecati veniam, excepturi mollitia eos cum velit officia, a debitis ipsum ratione fugit, similique rem?</p>
+            </div>
+        </div>
+
+        {% include "components/_description_tricks.html.twig" with {title: 'Date de création', value: '20/05/2022'} %}
+        {% include "components/_description_tricks.html.twig" with {title: 'Catégorie', value: 'Slide'} %}
+        {% include "components/_description_tricks.html.twig" with {title: 'Date de modification', value: '25/05/2022'} %}
+
+        <hr>
+            Formulaire
+        <hr>
+
+        <div class="row">
+            <h3>Commentaires :</h3>
+            {% for item in 1..10 %}
+                <div class="col-12 comment">
+                    <div>
+                        <span class="pseudo">Bob</span>
+                        <span class="comment-content">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatem ipsam voluptates magnam, a quibusdam similique nobis aut totam maiores eos sed officia consectetur. Dolores quas vel impedit similique quidem provident.</span>
+                    </div>
+                    <span class="comment-date">20/05/2022</span>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+
+{% endblock %}
