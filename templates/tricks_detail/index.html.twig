@@ -4,15 +4,15 @@
 
 {% block body %}
     
-    {% include "components/_header_tricks.html.twig" with {name: 'Slides', editable: true} %}
+    {% include "components/_header_tricks.html.twig" with {name: 'Slides', editable: true} only %}
 
     <div id="trick-detail-container" class="row flex-nowrap pt-5 pb-2">
-        {% for item in 1..10 %}
-            {% include "components/_card_tricks_detail.html.twig" with {editable: true} %}
+        {% for item in 1..8 %}
+            {% include "components/_card_tricks_detail.html.twig" with {editable: true} only %}
         {% endfor %}
     </div>
 
-    {% include "components/_button_border.html.twig" with {name: 'Voir plus de médias'} %}
+    {% include "components/_button_border.html.twig" with {name: 'Voir plus de médias'} only %}
 
     <div class="container pt-4">
         <div class="row">
@@ -25,9 +25,9 @@
             </div>
         </div>
 
-        {% include "components/_description_tricks.html.twig" with {title: 'Date de création', value: '20/05/2022'} %}
-        {% include "components/_description_tricks.html.twig" with {title: 'Catégorie', value: 'Slide'} %}
-        {% include "components/_description_tricks.html.twig" with {title: 'Date de modification', value: '25/05/2022'} %}
+        {% include "components/_description_tricks.html.twig" with {title: 'Date de création', value: '20/05/2022'} only %}
+        {% include "components/_description_tricks.html.twig" with {title: 'Catégorie', value: 'Slide'} only %}
+        {% include "components/_description_tricks.html.twig" with {title: 'Date de modification', value: '25/05/2022'} only %}
 
         <hr>
             Formulaire
