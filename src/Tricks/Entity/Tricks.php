@@ -1,11 +1,16 @@
 <?php
 
-namespace App\Entity;
+namespace App\Tricks\Entity;
 
-use App\Repository\TricksRepository;
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\PreUpdate;
+use Doctrine\ORM\Mapping\PrePersist;
+use App\Tricks\Repository\TricksRepository;
+use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
 
 #[ORM\Entity(repositoryClass: TricksRepository::class)]
+#[HasLifecycleCallbacks]
 class Tricks
 {
     #[ORM\Id]
@@ -91,5 +96,18 @@ class Tricks
         $this->updated_at = $updated_at;
 
         return $this;
+    }
+
+    #[PrePersist]
+    public function prePersist()
+    {
+        $this->setCreatedAt(new DateTime());
+        $this->setUpdatedAt($this->getCreatedAt());
+    }
+
+    #[PreUpdate]
+    public function preUpdate()
+    {
+        $this->setUpdatedAt(new DateTime());
     }
 }
