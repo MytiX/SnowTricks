@@ -235,9 +235,13 @@ a:hover {
     right: 15px;
 }
 
-.card-edit-tricks a{
+.card-edit-tricks a {
     padding: 15px;
     background-color: var(--white);
+}
+
+.card-edit-tricks a:hover {
+    color: var(--police-color);
 }
 
 #sign-container {
@@ -331,8 +335,13 @@ a:hover {
         padding-right: 15px;
     }
     .container-tricks-header .edit-tricks {
-        top: 100px;
+        top: 40px;
     }
+
+    .edit-tricks a:hover {
+        color: var(--police-color);
+    }
+
     #more-media span {
         display: none;
     }
