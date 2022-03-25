@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Entity;
+namespace App\Media\Entity;
 
-use App\Repository\MediaRepository;
+use App\Media\Repository\MediaRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: MediaRepository::class)]
