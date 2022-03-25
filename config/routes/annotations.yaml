@@ -2,6 +2,14 @@ controllers:
     resource: ../../src/Controller/
     type: annotation
 
+securityControllers:
+    resource: ../../src/Security/Controller/
+    type: annotation
+
+tricksControllers:
+    resource: ../../src/Tricks/Controller/
+    type: annotation
+
 kernel:
     resource: ../../src/Kernel.php
     type: annotation

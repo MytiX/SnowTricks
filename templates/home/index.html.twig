@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <div class="row">
+        <div id="introduction" class="col-12">
+            <div class="header-content">
+                <h2>Snowtricks le site, où tu pourras apprendre les meilleures figures de snowboard !</h2>
+            </div>
+            <a href="#trick-container" class="arrow-down"><i class="bi bi-arrow-down"></i></a>
+        </div>
+    </div>
+    <div id="trick-container" class="row">
+    {% for card in 1..15 %}
+        {% include "components/_card.html.twig" %}
+    {% endfor %}
+    </div>
+    <div class="row py-4">
+        {% include "components/_loader.html.twig" %}
+    </div>
+
+{% endblock %}

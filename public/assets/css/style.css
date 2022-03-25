@@ -1,0 +1,370 @@
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css");
+
+:root {
+    --grey-border: rgba(0, 0, 0, 0.4);
+    --police-color: #333333;
+    --white: white;
+    --font-content: 'Ubuntu', sans-serif;
+    --font-title: 'Major Mono Display', monospace;
+    --blue-color: rgba(7, 39, 58, 1);
+    --lightblue-color: rgba(40, 65, 80, 1);
+}
+
+/* html {
+    height: 100%;
+} */
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    color: var(--white);
+    font-family: var(--font-content);
+    background-color: var(--blue-color);
+}
+
+body::-webkit-scrollbar {
+    background-color: var(--blue-color);
+    width: 12px;
+}
+
+body::-webkit-scrollbar-thumb {
+    background-color: var(--white);
+    border-radius: 15px;
+}
+
+a {
+    text-decoration: none;
+    color: var(--police-color);
+}
+
+a:hover {
+    color: inherit;
+}
+
+#nav-container {
+    position: fixed;
+    bottom: 0;
+    background-color: var(--blue-color);
+    border-top: solid 1px var(--grey-border);
+    z-index: 1000;
+    color: var(--white);
+}
+
+.sub-nav {
+    display: none;
+}
+
+#logo {
+    display: none;
+    font-family: var(--font-title);
+}
+
+#nav a {
+    color: inherit;
+    font-weight: 600;
+}
+
+#nav a:hover {
+    color: inherit;
+}
+
+.sub-nav-mobile {
+    display: flex;
+    justify-content: space-around;
+}
+
+.sub-nav-mobile i {
+    font-size: 25px;
+}
+
+#introduction {
+    background-image: url('../img/introduction.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+#introduction .header-content {
+    color: var(--white);
+    text-align: center;
+}
+
+.arrow-down {
+    display: none;
+}
+
+#main-container {
+    height: 100%;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#footer {
+
+    text-align: center;
+    padding: 30px 70px;
+    background-color: var(--blue-color);
+    color: var(--white);
+    border-top: 1px solid var(--white);
+    margin-top: auto;
+}
+
+.color {
+    background-color: #333333;
+}
+
+#trick-container {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    overflow: auto;
+}
+
+#trick-container::-webkit-scrollbar, #trick-detail-container::-webkit-scrollbar {
+    background-color: var(--blue-color);
+}
+
+#trick-container::-webkit-scrollbar-thumb, #trick-detail-container::-webkit-scrollbar-thumb  {
+    background-color: var(--white);
+    border-radius: 15px;
+}
+
+.trick-content {
+    background-color: var(--white);
+}
+
+.trick-content:hover {
+    transform: scale(1.1);
+    transition: 0.3s;
+}
+
+.img-tricks {
+    padding: 5px;
+}
+
+.manage-tricks {
+    display: flex;
+    justify-content: center;
+    padding: 10px 10px;
+    background-color: var(--white);
+}
+
+.manage-tricks h3 {
+    margin: 0;
+}
+
+.manage-tricks a {
+    margin: auto 0;
+    padding: 0 5px;
+}
+
+.container-tricks-header {
+    position: relative;
+    max-height: 70vh;
+    overflow: hidden;
+}
+
+.container-tricks-header .edit-tricks {
+    position: absolute;
+    top: 35px;
+    text-align: right;
+    padding-right: 20px;
+}
+
+.container-tricks-header h2 {
+    position: absolute;
+    top: 50%;
+    text-align: center;
+    color: var(--white);
+}
+
+.edit-tricks a {
+    padding: 15px;
+    background-color: var(--white);
+}
+
+#trick-detail-container {
+    display: none;
+    overflow: auto;
+}
+
+#more-media span {
+    display: inline-block;
+    margin: 30px 0;
+    padding: 15px 10px;
+    color: var(--white);
+    border: 1px solid var(--white);
+}
+
+.comment {
+    border-bottom: 1px solid var(--white);
+    padding: 20px;
+}
+
+.comment:nth-last-child(-n+1) {
+    border-bottom: unset;
+}
+
+.comment span {
+    display: inline-block;
+}
+
+.comment-date {
+    padding-top: 15px;
+}
+
+.pseudo {
+    padding-bottom: 15px;
+    font-weight: 600;
+}
+
+.card-tricks {
+    position: relative;
+}
+
+.card-edit-tricks {
+    position: absolute;
+    top: 30px;
+    right: 15px;
+}
+
+.card-edit-tricks a{
+    padding: 15px;
+    background-color: var(--white);
+}
+
+#sign-container {
+    padding: 0 16px;
+    width: 100%;
+    text-align: center;
+}
+
+#sign-container a {
+    color: var(--white);
+}
+
+.sign-title {
+    padding-bottom: 25px;
+    margin: 0;
+}
+
+.btn-custom {
+    background-color: var(--blue-color);
+    color: var(--white);
+    border: unset;
+    border-radius: 10px;
+    padding: 10px 25px;
+    margin-top: 20px;
+}
+
+/* OVERRIDE BOOTSTRAP */
+.dropdown-toggle::after {
+    content: none;
+}
+/* END OVERRIDE BOOTSTRAP */
+
+@media (min-width: 576px) { 
+
+}
+
+@media (min-width: 768px) {
+    #logo {
+        font-size: 2em;
+        display: block;
+    }
+    #nav {
+        display: flex;
+        align-items: center;
+    }
+    #nav a {
+        padding: 0 5px;
+    }
+    #nav-container {
+        position: fixed;
+        top: 0;
+        bottom: unset;
+        border-bottom: solid 1px var(--grey-border);
+    }
+    #nav a::after {
+        content: '|';
+        padding-left: 10px ;
+    }
+    #nav a:nth-last-child(-n+1):after {
+        content: '';
+    }
+    .sub-nav {
+        display: block;
+        margin-right: 65px;
+        margin-left: auto;
+    }
+    .sub-nav-mobile {
+        display: none;
+    }
+    #introduction .header-content {
+        margin-left: 45%;
+        padding: 25px;
+        max-width: 525px;
+    }
+    .arrow-down {
+        display: block;
+        font-size: 40px;
+        color: var(--police-color);
+        position: absolute;
+        bottom: 20px;
+        right: 40px;
+    }
+    #footer {
+        text-align: left;
+    }
+    #trick-container {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+    .container-tricks-header .edit-tricks {
+        top: 100px;
+    }
+    #more-media span {
+        display: none;
+    }
+
+    #trick-detail-container {
+        display: flex;
+    }
+
+    .comment {
+        display: flex;
+        align-items: center;
+    }
+    #main-container {
+        margin-top: 64px;
+    }
+
+    #sign-container {
+        background-color: var(--lightblue-color);
+        border-radius: 10px;
+        padding: 25px 50px;
+        max-width: 400px;
+    }
+}
+
+@media (min-width: 992px) {
+
+}
+
+@media (min-width: 1200px) {
+    #trick-container {
+        padding-left: 75px;
+        padding-right: 75px;
+    }
+}
+
+@media (min-width: 1400px) {
+
+}
