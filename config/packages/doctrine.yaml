@@ -10,11 +10,21 @@ doctrine:
         naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
         auto_mapping: true
         mappings:
-            App:
+            # App:
+            #     is_bundle: false
+            #     dir: '%kernel.project_dir%/src/Entity'
+            #     prefix: 'App\Entity'
+            #     alias: App
+            Tricks:
                 is_bundle: false
-                dir: '%kernel.project_dir%/src/Entity'
-                prefix: 'App\Entity'
-                alias: App
+                dir: '%kernel.project_dir%/src/Tricks/Entity'
+                prefix: 'App\Tricks\Entity'
+                alias: Tricks
+            Media:
+                is_bundle: false
+                dir: '%kernel.project_dir%/src/Media/Entity'
+                prefix: 'App\Media\Entity'
+                alias: Media
 
 when@test:
     doctrine:
