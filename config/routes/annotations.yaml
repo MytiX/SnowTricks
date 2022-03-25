@@ -2,11 +2,11 @@ controllers:
     resource: ../../src/Controller/
     type: annotation
 
-security-controllers:
+securityControllers:
     resource: ../../src/Security/Controller/
     type: annotation
 
-tricks-controllers:
+tricksControllers:
     resource: ../../src/Tricks/Controller/
     type: annotation
 
