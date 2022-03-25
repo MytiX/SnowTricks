@@ -26,7 +26,7 @@ class Tricks
     private $created_at;
 
     #[ORM\Column(type: 'datetime')]
-    private $update_at;
+    private $updated_at;
 
     public function getId(): ?int
     {
@@ -81,14 +81,14 @@ class Tricks
         return $this;
     }
 
-    public function getUpdateAt(): ?\DateTimeInterface
+    public function getUpdatedAt(): ?\DateTimeInterface
     {
-        return $this->update_at;
+        return $this->updated_at;
     }
 
-    public function setUpdateAt(\DateTimeInterface $update_at): self
+    public function setUpdatedAt(\DateTimeInterface $updated_at): self
     {
-        $this->update_at = $update_at;
+        $this->updated_at = $updated_at;
 
         return $this;
     }
