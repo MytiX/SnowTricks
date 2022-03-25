@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Repository;
+namespace App\Media\Repository;
 
-use App\Entity\Media;
+use App\Media\Entity\Media;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
