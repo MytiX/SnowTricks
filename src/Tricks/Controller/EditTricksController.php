@@ -2,30 +2,26 @@
 
 namespace App\Tricks\Controller;
 
-use App\Entity\Tricks;
-use App\Form\TricksType;
-use App\Repository\TricksRepository;
 use DateTime;
+use App\Tricks\Form\TricksType;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Tricks\Repository\TricksRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class EditTricksController extends AbstractController
+class TricksController extends AbstractController
 {
     #[Route('/tricks/add', name: 'app_add_tricks')]
     #[Route('/tricks/edit/{id}', name: 'app_edit_tricks')]
-    public function __invoke(?int $id = null, Request $request, EntityManagerInterface $em): Response
+    public function __invoke(?int $id, Request $request, EntityManagerInterface $em, TricksRepository $tricksRepository): Response
     {
         $tricks = null;
 
-        if ('app_edit_tricks' === $request->attributes->get('_route')) {
-            if (null === $id) {
-                dd('Redirect 404 Not found');
-            }
-
-            $tricks = $em->find(Tricks::class, $id);
+        if (null !== $id && null === ($tricks = $tricksRepository->find($id))) {
+            throw new NotFoundHttpException();
         }
 
         $form = $this->createForm(TricksType::class, $tricks);
@@ -34,18 +30,12 @@ class EditTricksController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $now = new DateTime();
-
-            /** @var Tricks $tricks */
             $tricks = $form->getData();
 
-            if ('app_add_tricks' === $request->attributes->get('_route')) {
-                $tricks->setCreatedAt($now);
+            if (null === $tricks->getId()) {
+                $em->persist($tricks);
             }
 
-            $tricks->setUpdatedAt($now);
-
-            $em->persist($tricks);
             $em->flush();
         }
 
