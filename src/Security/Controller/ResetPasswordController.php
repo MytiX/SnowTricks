@@ -9,7 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class ResetPasswordController extends AbstractController
 {
     #[Route('/reset-password', name: 'app_reset_password')]
-    public function index(): Response
+    public function __invoke(): Response
     {
         return $this->render('reset_password/index.html.twig', [
             'controller_name' => 'ResetPasswordController',

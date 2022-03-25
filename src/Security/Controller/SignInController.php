@@ -9,7 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class SignInController extends AbstractController
 {
     #[Route('/signin', name: 'app_signin')]
-    public function index(): Response
+    public function __invoke(): Response
     {
         return $this->render('sign_in/index.html.twig');
     }
