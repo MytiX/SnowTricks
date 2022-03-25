@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Repository;
+namespace App\Tricks\Repository;
 
-use App\Entity\Tricks;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\ORM\OptimisticLockException;
+use App\Tricks\Entity\Tricks;
 use Doctrine\ORM\ORMException;
+use Doctrine\ORM\OptimisticLockException;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @method Tricks|null find($id, $lockMode = null, $lockVersion = null)
