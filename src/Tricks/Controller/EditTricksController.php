@@ -2,7 +2,6 @@
 
 namespace App\Tricks\Controller;
 
-use DateTime;
 use App\Tricks\Form\TricksType;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Tricks\Repository\TricksRepository;
@@ -12,7 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class TricksController extends AbstractController
+class EditTricksController extends AbstractController
 {
     #[Route('/tricks/add', name: 'app_add_tricks')]
     #[Route('/tricks/edit/{id}', name: 'app_edit_tricks')]
