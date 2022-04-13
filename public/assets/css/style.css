@@ -195,7 +195,10 @@ a {
 }
 
 #trick-detail-container {
-    display: none;
+    overflow: hidden;
+}
+
+#trick-detail-container:hover {
     overflow: auto;
 }
 
