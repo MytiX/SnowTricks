@@ -5,6 +5,8 @@ window.onload = () => {
     links_delete.forEach(link_delete => {
         link_delete.addEventListener("click", (e) => {
             e.preventDefault()
+
+            console.log(link_delete)
     
             if (confirm("Voulez-vous supprimer cette image ?")) {
                 fetch(link_delete.getAttribute("href"), {
@@ -18,7 +20,7 @@ window.onload = () => {
                     response => response.json()
                 ).then(data => {
                     if (data.success)
-                        link_delete.parentElement.remove()
+                        link_delete.parentElement.parentElement.remove()
                     else
                         alert(data.error)
                 }).catch(e => alert(e))
