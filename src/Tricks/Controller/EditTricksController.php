@@ -42,13 +42,19 @@ class EditTricksController extends AbstractController
             $libraries = $form->get('libraries')->getData();
 
             if (null !== $libraries) {
-                $first = true;
+                
+                $header = false;
+
+                if (null === $tricks->getHeaderMedia()) {
+                    $header = true;
+                }
+
                 foreach ($libraries as $librarie) {
                     $media = new Media($this->getParameter('app.uploads_directory'));
                     $media->setFile($librarie);
-                    if ($first) {
-                        $media->setHeader($first);
-                        $first = false;
+                    if ($header) {
+                        $media->setHeader($header);
+                        $header = false;
                     }
                     $tricks->addMedias($media);
                 }
@@ -71,11 +77,5 @@ class EditTricksController extends AbstractController
             'formView' => $form->createView(),
             'tricks' => $tricks,
         ]);
-    }
-
-    #[Route('/delete/{id}', name: 'app_delete_tricks')]
-    public function delete(int $id): Response
-    {
-        dd('Tricks effacé ' . $id);
     }
 }

@@ -151,4 +151,18 @@ class Tricks
 
         return $this;
     }
+
+    public function getHeaderMedia()
+    {
+        $medias = $this->getMedias();
+
+        if (null !== $medias) {            
+            foreach ($medias as $media) {
+                if (true === $media->getHeader()) {
+                    return $media;
+                }
+            }
+        }
+        return null;
+    }
 }

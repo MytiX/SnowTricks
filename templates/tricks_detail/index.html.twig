@@ -1,14 +1,14 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Slide{% endblock %}
+{% block title %}{{ tricks.name }}{% endblock %}
 
 {% block body %}
     
-    {% include "components/_header_tricks.html.twig" with {name: 'Slides', editable: true} only %}
+    {% include "components/_header_tricks.html.twig" with {tricks: tricks, editable: true} only %}
 
     <div id="trick-detail-container" class="row flex-nowrap pt-5 pb-2">
-        {% for item in 1..8 %}
-            {% include "components/_card_tricks_detail.html.twig" with {editable: true} only %}
+        {% for media in tricks.medias %}
+            {% include "components/_card_tricks_detail.html.twig" with {media: media} only %}
         {% endfor %}
     </div>
 
@@ -17,17 +17,13 @@
     <div class="container pt-4">
         <div class="row">
             <div class="col-12 pb-4">
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident exercitationem expedita saepe illum cupiditate quo minus consectetur, amet molestiae! Reprehenderit natus minima magni voluptatibus explicabo. Consequatur dicta nisi in? Ratione.
-                Quibusdam nemo ipsam saepe impedit commodi ex obcaecati fugiat iusto quis voluptatum? Sit eum, voluptas culpa vel suscipit quod iusto doloremque, id sequi, consequuntur odio magnam quidem aliquam! Beatae, facere.
-                Dolorum architecto cumque quibusdam id deleniti, voluptatum corrupti nesciunt rem amet dicta molestias nisi ullam laborum eaque. Harum omnis, vero culpa perspiciatis, laboriosam, hic error ratione doloribus quis accusantium aut.
-                Laboriosam molestias quae quod aliquid maxime soluta assumenda quia. Nulla autem reprehenderit quasi earum nisi sit, aperiam hic, magnam recusandae totam officia reiciendis odit aspernatur incidunt quod consectetur sint error!
-                Commodi, non reprehenderit. Obcaecati veniam, excepturi mollitia eos cum velit officia, a debitis ipsum ratione fugit, similique rem?</p>
+                <p>{{ tricks.description }}</p>
             </div>
         </div>
 
-        {% include "components/_description_tricks.html.twig" with {title: 'Date de création', value: '20/05/2022'} only %}
-        {% include "components/_description_tricks.html.twig" with {title: 'Catégorie', value: 'Slide'} only %}
-        {% include "components/_description_tricks.html.twig" with {title: 'Date de modification', value: '25/05/2022'} only %}
+        {% include "components/_description_tricks.html.twig" with {title: 'Date de création', value: tricks.createdAt|date("d/m/Y")} only %}
+        {% include "components/_description_tricks.html.twig" with {title: 'Catégorie', value: tricks.groupStunt} only %}
+        {% include "components/_description_tricks.html.twig" with {title: 'Date de modification', value: tricks.updatedAt|date("d/m/Y")} only %}
 
         <hr>
             Formulaire

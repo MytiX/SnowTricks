@@ -1,10 +1,10 @@
 <div class="row container-tricks-header">
-    <img class="img-fluid" src="{{ asset('assets/img/figure.jpg') }}" alt="">
-    <h2>{{ name }}</h2>
+    <img class="img-fluid" src="{{ asset('uploads/' ~ tricks.headerMedia.name) }}" alt="">
+    <h2>{{ tricks.name }}</h2>
     {% if editable == true %}
     <div class="edit-tricks">
-        <a href="#"><i class="bi bi-pencil-fill"></i></a>
-        <a href="#"><i class="bi bi-trash-fill"></i></i></a>
+        <a href="{{ path('app_edit_tricks', { id: tricks.id }) }}"><i class="bi bi-pencil-fill"></i></a>
+        <a href="{{ path('app_delete_tricks', { id: tricks.id }) }}"><i class="bi bi-trash-fill"></i></i></a>
     </div>
     {% endif %}
 </div>
