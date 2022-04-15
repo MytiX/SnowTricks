@@ -1,0 +1,7 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription{% endblock %}
+
+{% block body %}
+	{% include "components/_sign.html.twig" with {last_username: last_username, error: error, title: 'Connexion', button_text: 'Connexion'} only %}
+{% endblock %}

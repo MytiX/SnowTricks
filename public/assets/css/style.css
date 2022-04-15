@@ -243,11 +243,14 @@ a:hover {
 #sign-container {
     padding: 0 16px;
     width: 100%;
-    text-align: center;
 }
 
 #sign-container a {
     color: var(--white);
+}
+
+#sign-container label {
+    margin-bottom: 0.5rem;
 }
 
 .sign-title {
