@@ -2,13 +2,17 @@
 
 namespace App\Entity;
 
-use App\Repository\UserRepository;
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use App\Repository\UserRepository;
+use Doctrine\ORM\Mapping\PreUpdate;
+use Doctrine\ORM\Mapping\PrePersist;
+use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
+#[HasLifecycleCallbacks]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -37,8 +41,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'datetime')]
     private $updatedAt;
 
-    #[ORM\Column(type: 'boolean')]
-    private $active = 0;
+    #[ORM\Column(type: 'boolean', options: ['default' => false])]
+    private $active = false;
 
     public function getId(): ?int
     {
@@ -187,5 +191,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->active = $active;
 
         return $this;
+    }
+
+    #[PrePersist]
+    public function prePersist()
+    {
+        $this->setCreatedAt(new DateTime());
+        $this->setUpdatedAt($this->getCreatedAt());
+    }
+
+    #[PreUpdate]
+    public function preUpdate()
+    {
+        $this->setUpdatedAt(new DateTime());
     }
 }
