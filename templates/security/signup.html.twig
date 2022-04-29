@@ -30,9 +30,14 @@
                 <div class="form-group">
                     {{ form_row(form.CGU, {label: 'Vous devez acceptez les <a href="'~ path('app_cgu') ~'">CGU</a> afin de vous inscrire', label_html: true}) }}               
                 </div>
+
     
                 <div class="text-end">
                     {{ form_row(form.submit, {'label': 'Inscription'}) }}
+                </div>
+
+                <div class="text-center">
+                    <a href="{{ path('app_signin') }}">J'ai déjà un compte !</a>                    
                 </div>
             {{ form_end(form) }}
 		</div>

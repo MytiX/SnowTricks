@@ -15,39 +15,30 @@
                     </div>
 				{% endif %}
 
+                
+                {% for message in app.flashes('error') %}
+                    <div class="alert alert-danger" role="alert">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+
                 {% for message in app.flashes('success') %}
                     <div class="alert alert-success" role="alert">
                         {{ message }}
                     </div>
                 {% endfor %}
 
-				<form action="{{ path('app_signin') }}" method="POST">
-
-					<div class="form-group mb-3">
-						<label for="username">Votre email :</label>
-						<input type="text" class="form-control" id="username" name="_username" value="{{ last_username }}"/>
+                {{ form_start(form) }}
+                    {{ form_row(form._username, {label: 'Email'}) }}
+                    {{ form_row(form._password, {label: 'Mot de passe'}) }}
+                    <a href="{{ path('app_forgot_password') }}">Mot de passe oublié ?</a>
+                    <div class="text-end">
+                        {{ form_row(form.submit, {label: 'Connexion'}) }}
 					</div>
-
-					<div class="form-group mb-3">
-						<label for="password">Votre mot de passe :</label>
-						<input type="password" class="form-control" id="password" name="_password"/>
+                    <div class="text-center">
+                        <a href="{{ path('app_signin') }}">Créer un compte</a>
 					</div>
-
-					<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate_login') }}">
-
-					{% if app.request.attributes.get('_route') == 'app_signin' %}
-						<a href="{{ path('app_forgot_password') }}">Mot de passe oublié ?</a>
-					{% endif %}
-
-					{% if app.request.attributes.get('_route') == 'app_signup' %}
-						<a href="{{ path('app_signin') }}">J'ai déjà un compte !</a>
-					{% endif %}
-
-					<div class="text-end">
-						<button class="btn btn-primary" type="submit">Connexion</button>
-					</div>
-
-				</form>
+                {{ form_end(form) }}
 			</div>
 		</div>
 	</div>

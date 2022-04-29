@@ -21,6 +21,12 @@ class SignUpController extends AbstractController
     #[Route('/signup', name: 'app_signup')]
     public function __invoke(Request $request, UserRepository $userRepository, UserPasswordHasherInterface  $passwordHasher, EntityManagerInterface $em, MailerInterface $mailer): Response
     {
+        $user = $this->getUser();
+
+        if (null !== $user) {
+            return $this->redirectToRoute('app_home');
+        }
+
         $form = $this->createForm(SignUpType::class);
 
         $form->handleRequest($request);
@@ -46,7 +52,8 @@ class SignUpController extends AbstractController
                     ->htmlTemplate('email/create_account.html.twig')
                     ->context([
                         'user' => $user,
-                    ]);
+                    ]
+                );
 
                     /** @var RawMessage $email */
                 $mailer->send($email);
