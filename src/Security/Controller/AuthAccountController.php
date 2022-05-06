@@ -9,7 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class AuthAccountController extends AbstractController
 {
     #[Route('/auth/account/{email}/{tokenAuth}', name: 'app_auth_account')]
-    public function test(string $email, string $tokenAuth, UserRepository $userRepository, EntityManagerInterface $em)
+    public function __invoke(string $email, string $tokenAuth, UserRepository $userRepository, EntityManagerInterface $em)
     {
         $user = $userRepository->findOneBy([
             'email' => $email,
@@ -17,16 +17,16 @@ class AuthAccountController extends AbstractController
         ]);
 
         if (null === $user) {
-            $this->addFlash('error', "Une erreur c'est produite lors de votre vérification, nous venons de vous renvoyer un email de vérification.");
+            $this->addFlash('error', 'Une erreur est survenue lors de votre authentification, un email vous a été envoyé.');
             return $this->redirectToRoute('app_signin');
         }
 
-        $user->setActive(true);
+        if (false === $user->getActive()) {
+            $user->setActive(true);
+            $em->flush();
+        }
 
-        $em->flush();
-
-        $this->addFlash('success', 'Votre compte est maintenant activé.');
-
+        $this->addFlash('success', 'Votre compte à été validé.');
         return $this->redirectToRoute('app_signin');
     }
 }
