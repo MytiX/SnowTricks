@@ -2,8 +2,10 @@
 namespace App\Security\UserChecker;
 
 use App\Entity\User;
+use App\Event\UserSignInSuccessEvent;
 use Symfony\Component\Mime\RawMessage;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserCheckerInterface;
@@ -11,7 +13,7 @@ use Symfony\Component\Security\Core\Exception\CustomUserMessageAccountStatusExce
 
 class UserChecker implements UserCheckerInterface 
 {
-    public function __construct(private MailerInterface $mailer) {}
+    public function __construct(private MailerInterface $mailer, private EventDispatcherInterface $dispatcher) {}
 
     public function checkPreAuth(UserInterface $user)
     {
@@ -31,13 +33,6 @@ class UserChecker implements UserCheckerInterface
             return;
         }
 
-        $email = (new TemplatedEmail())
-            ->from("contact@snowtricks.fr")
-            ->to($user->getEmail())
-            ->subject('Connexion détectée à votre compte Snowtricks')
-            ->htmlTemplate('email/new_connexion.html.twig');
-
-            /** @var RawMessage $email */
-        $this->mailer->send($email);
+        $this->dispatcher->dispatch(new UserSignInSuccessEvent($user), 'user.signin.success');
     }
 }
