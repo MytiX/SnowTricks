@@ -44,6 +44,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'boolean', options: ['default' => false])]
     private $active = false;
 
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private $resetPassword;
+
+    #[ORM\Column(type: 'datetime', nullable: true)]
+    private $resetPasswordExpireAt;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -204,5 +210,29 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function preUpdate()
     {
         $this->setUpdatedAt(new DateTime());
+    }
+
+    public function getResetPassword(): ?string
+    {
+        return $this->resetPassword;
+    }
+
+    public function setResetPassword(?string $resetPassword): self
+    {
+        $this->resetPassword = $resetPassword;
+
+        return $this;
+    }
+
+    public function getResetPasswordExpireAt(): ?\DateTimeInterface
+    {
+        return $this->resetPasswordExpireAt;
+    }
+
+    public function setResetPasswordExpireAt(?\DateTimeInterface $resetPasswordExpireAt): self
+    {
+        $this->resetPasswordExpireAt = $resetPasswordExpireAt;
+
+        return $this;
     }
 }

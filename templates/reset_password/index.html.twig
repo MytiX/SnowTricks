@@ -1,7 +1,39 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Mot de passe oublié{% endblock %}
+{% block title %}Nouveau mot de passe
+{% endblock %}
 
 {% block body %}
-	{% include "components/_sign.html.twig" with {title: 'Réinitialisation mot de passe'} only %}
+	<div class="row h-100">
+		<div class="col-12 d-flex flex-column justify-content-center align-items-center">
+			<h2 class="sign-title">Nouveau mot de passe</h2>
+			<div id="sign-container">
+                
+                {% for message in app.flashes('error') %}
+                    <div class="alert alert-danger" role="alert">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+
+                {% for message in app.flashes('success') %}
+                    <div class="alert alert-success" role="alert">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+
+                {{ form_start(form) }}
+                    <div class="form-group">                    
+                        {{ form_row(form.password.first, {'label': 'Nouveau mot de passe : '}) }}
+                    </div>
+                    <div class="form-group">                    
+                        {{ form_row(form.password.second, {'label': 'Confirmer votre mot de passe : '}) }}
+                    </div>
+                    <div class="text-end">
+                        {{ form_row(form.submit, {label: 'Confirmer'}) }}
+					</div>
+                {{ form_end(form) }}
+			</div>
+		</div>
+	</div>
+
 {% endblock %}

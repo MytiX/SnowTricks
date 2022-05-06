@@ -39,3 +39,15 @@ services:
           - {name: kernel.event_listener, event: user.signin.success}
         arguments:
           $contactFrom: '%app.mailer.contact%'
+
+    App\Security\EventListener\ForgotPasswordSuccessEmail:
+        tags: 
+          - {name: kernel.event_listener, event: user.forgot.password.success}
+        arguments:
+          $contactFrom: '%app.mailer.contact%'
+
+    App\Security\EventListener\ResetPasswordSuccessEmail:
+        tags: 
+          - {name: kernel.event_listener, event: user.reset.password.success}
+        arguments:
+          $contactFrom: '%app.mailer.contact%'
