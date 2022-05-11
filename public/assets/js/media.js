@@ -5,9 +5,6 @@ window.onload = () => {
     links_delete.forEach(link_delete => {
         link_delete.addEventListener("click", (e) => {
             e.preventDefault()
-
-            console.log(link_delete)
-    
             if (confirm("Voulez-vous supprimer cette image ?")) {
                 fetch(link_delete.getAttribute("href"), {
                     method: "DELETE",
@@ -30,9 +27,7 @@ window.onload = () => {
 
     links_header.forEach(link_header => {
         link_header.addEventListener("click", (e) => {
-
             e.preventDefault()
-
             fetch(link_header.getAttribute("href"), {
                 method: "PUT",
                 headers: {

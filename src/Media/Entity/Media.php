@@ -33,7 +33,7 @@ class Media
     #[ORM\Column(type: 'boolean')]
     private $header = false;
 
-    #[ORM\ManyToOne(targetEntity: Tricks::class, inversedBy: 'images')]
+    #[ORM\ManyToOne(targetEntity: Tricks::class, inversedBy: 'medias')]
     #[ORM\JoinColumn(nullable: false)]
     private $tricks;
 
