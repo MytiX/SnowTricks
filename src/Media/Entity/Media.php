@@ -2,10 +2,16 @@
 
 namespace App\Media\Entity;
 
-use App\Media\Repository\MediaRepository;
+use DateTime;
+use App\Tricks\Entity\Tricks;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\PreUpdate;
+use Doctrine\ORM\Mapping\PrePersist;
+use App\Media\Repository\MediaRepository;
+use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
 
 #[ORM\Entity(repositoryClass: MediaRepository::class)]
+#[HasLifecycleCallbacks]
 class Media
 {
     #[ORM\Id]
@@ -17,16 +23,17 @@ class Media
     private $type;
 
     #[ORM\Column(type: 'string', length: 255)]
-    private $path;
-
-    #[ORM\Column(type: 'text')]
-    private $description;
+    private $name;
 
     #[ORM\Column(type: 'datetime')]
     private $created_at;
 
     #[ORM\Column(type: 'datetime')]
     private $updated_at;
+
+    #[ORM\ManyToOne(targetEntity: Tricks::class, inversedBy: 'images')]
+    #[ORM\JoinColumn(nullable: false)]
+    private $tricks;
 
     public function getId(): ?int
     {
@@ -45,26 +52,14 @@ class Media
         return $this;
     }
 
-    public function getPath(): ?string
+    public function getName(): ?string
     {
-        return $this->path;
+        return $this->name;
     }
 
-    public function setPath(string $path): self
+    public function setName(string $name): self
     {
-        $this->path = $path;
-
-        return $this;
-    }
-
-    public function getDescription(): ?string
-    {
-        return $this->description;
-    }
-
-    public function setDescription(string $description): self
-    {
-        $this->description = $description;
+        $this->name = $name;
 
         return $this;
     }
@@ -89,6 +84,31 @@ class Media
     public function setUpdatedAt(\DateTimeInterface $updated_at): self
     {
         $this->updated_at = $updated_at;
+
+        return $this;
+    }
+
+    #[PrePersist]
+    public function prePersist()
+    {
+        $this->setCreatedAt(new DateTime());
+        $this->setUpdatedAt($this->getCreatedAt());
+    }
+
+    #[PreUpdate]
+    public function preUpdate()
+    {
+        $this->setUpdatedAt(new DateTime());
+    }
+
+    public function getTricks(): ?Tricks
+    {
+        return $this->tricks;
+    }
+
+    public function setTricks(?Tricks $tricks): self
+    {
+        $this->tricks = $tricks;
 
         return $this;
     }

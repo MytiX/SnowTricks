@@ -5,7 +5,9 @@ namespace App\Tricks\Form;
 use App\Tricks\Entity\Tricks;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -29,6 +31,25 @@ class TricksType extends AbstractType
                     'Old school' => 'Old school',
                 ],
             ])
+            ->add('images', FileType::class, [
+                'required' => false,
+                'multiple' => true,
+                'mapped' => false,
+            ])
+            // ->add('images', FileType::class, [
+            //     'required' => false,
+            //     'multiple' => true,
+            //     // 'mapped' => false,
+            //     'constraints' => [
+            //         new File([
+            //             // 'maxSize' => '300k',
+            //             'mimeTypes' => [
+            //                 'image/jpeg',
+            //                 'image/png',
+            //             ],
+            //         ])
+            //     ],
+            // ])
             ->add("submit", SubmitType::class)
         ;
     }

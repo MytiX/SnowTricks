@@ -3,11 +3,14 @@
 namespace App\Tricks\Entity;
 
 use DateTime;
+use App\Media\Entity\Media;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\PreUpdate;
 use Doctrine\ORM\Mapping\PrePersist;
 use App\Tricks\Repository\TricksRepository;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
+use Doctrine\Common\Collections\ArrayCollection;
 
 #[ORM\Entity(repositoryClass: TricksRepository::class)]
 #[HasLifecycleCallbacks]
@@ -32,6 +35,14 @@ class Tricks
 
     #[ORM\Column(type: 'datetime')]
     private $updated_at;
+
+    #[ORM\OneToMany(mappedBy: 'tricks', targetEntity: Media::class, orphanRemoval: true, cascade: ["persist"])]
+    private $medias;
+
+    public function __construct()
+    {
+        $this->medias = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -109,5 +120,35 @@ class Tricks
     public function preUpdate()
     {
         $this->setUpdatedAt(new DateTime());
+    }
+
+    /**
+     * @return Collection<int, Media>
+     */
+    public function getMedias(): Collection
+    {
+        return $this->medias;
+    }
+
+    public function addMedias(Media $media): self
+    {
+        if (!$this->medias->contains($media)) {
+            $this->medias[] = $media;
+            $media->setTricks($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMedia(Media $media): self
+    {
+        if ($this->medias->removeElement($media)) {
+            // set the owning side to null (unless already changed)
+            if ($media->getTricks() === $this) {
+                $media->setTricks(null);
+            }
+        }
+
+        return $this;
     }
 }
