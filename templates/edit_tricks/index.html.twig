@@ -11,6 +11,16 @@
 {% block body %}
 
     <div class="container">
+        {% if app.request.attributes.get('_route') == 'app_edit_tricks' and tricks != null %}
+            <div class="row">
+                {% for media in tricks.medias %}            
+                    <div class="col-2 image-trick-edit">
+                        <img class="img-fluid" src="{{ asset('uploads/' ~ media.name) }}">
+                        <a href="{{ path('app_delete_media', {id: media.id})}}" data-delete data-token="{{ csrf_token('delete' ~ media.id) }}"><i class="bi bi-trash-fill"></i></i></a>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
         <div class="row">
             <div class="col-12">
 
@@ -19,7 +29,8 @@
                     {{ form_row(formView.name, { 'label': 'Nom de la figure' }) }}
                     {{ form_row(formView.description, { 'label': 'Description' }) }}
                     {{ form_row(formView.group_stunt, { 'label': 'Type de tricks' }) }}
-                    {{ form_row(formView.images, { 'label': 'Images tricks' }) }}
+                    {{ form_row(formView.libraries, { 'label': "Bibliothèque d'images" }) }}
+
                     <div class="text-end">
                         {{ form_row(formView.submit, { 'label': 'Envoyer' }) }}
                     </div>
@@ -29,5 +40,8 @@
         </div>
     </div>
 
-    {# {% include "components/_header_tricks.html.twig" with {name: 'Slides', editable: true} only %} #}
+{% endblock %}
+
+{% block script %}
+    <script src="{{ asset('assets/js/media.js') }}" defer async></script>
 {% endblock %}

@@ -3,6 +3,7 @@
 namespace App\Tricks\Controller;
 
 use App\Media\Entity\Media;
+use App\Media\Repository\MediaRepository;
 use App\Tricks\Entity\Tricks;
 use App\Tricks\Form\TricksType;
 use App\Media\Uploads\UploadFile;
@@ -13,6 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 #[Route('/tricks')]
@@ -37,25 +39,15 @@ class EditTricksController extends AbstractController
             /** @var Tricks $tricks */
             $tricks = $form->getData();
 
-            $images = $form->get('images')->getData();
+            $libraries = $form->get('libraries')->getData();
 
-            foreach ($images as $image) {
-
-                /** @var UploadedFile $image */
-                $extension = $image->guessExtension();
-                $fileName = md5(uniqid()) . '.' . $extension;
-
-                $image->move($this->getParameter('app.images_directory', $fileName));
-
-                $media = new Media();
-
-                $media->setName($fileName);
-                $media->setType($extension);
-                $tricks->addMedias($media);
-
+            if (null !== $libraries) {
+                foreach ($libraries as $librarie) {
+                    $media = new Media($this->getParameter('app.uploads_directory'));
+                    $media->setFile($librarie);
+                    $tricks->addMedias($media);
+                }
             }
-
-            dd($tricks, $images, $form);
 
             if (null === $tricks->getId()) {
                 $em->persist($tricks);
@@ -66,6 +58,7 @@ class EditTricksController extends AbstractController
 
         return $this->render('edit_tricks/index.html.twig', [
             'formView' => $form->createView(),
+            'tricks' => $tricks,
         ]);
     }
 }

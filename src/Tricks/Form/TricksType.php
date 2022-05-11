@@ -12,6 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Validator\Constraints\All;
 
 class TricksType extends AbstractType
 {
@@ -31,25 +32,24 @@ class TricksType extends AbstractType
                     'Old school' => 'Old school',
                 ],
             ])
-            ->add('images', FileType::class, [
+            ->add('libraries', FileType::class, [
                 'required' => false,
                 'multiple' => true,
                 'mapped' => false,
+                'constraints' => [
+                    new All([
+                        'constraints' => [
+                            new File([
+                                'maxSize' => '300k',
+                                'mimeTypes' => [
+                                    'image/jpeg',
+                                    'image/png',
+                                ],
+                            ])
+                        ]
+                    ])
+                ],
             ])
-            // ->add('images', FileType::class, [
-            //     'required' => false,
-            //     'multiple' => true,
-            //     // 'mapped' => false,
-            //     'constraints' => [
-            //         new File([
-            //             // 'maxSize' => '300k',
-            //             'mimeTypes' => [
-            //                 'image/jpeg',
-            //                 'image/png',
-            //             ],
-            //         ])
-            //     ],
-            // ])
             ->add("submit", SubmitType::class)
         ;
     }

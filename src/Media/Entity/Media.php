@@ -5,10 +5,9 @@ namespace App\Media\Entity;
 use DateTime;
 use App\Tricks\Entity\Tricks;
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\ORM\Mapping\PreUpdate;
-use Doctrine\ORM\Mapping\PrePersist;
 use App\Media\Repository\MediaRepository;
 use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 #[ORM\Entity(repositoryClass: MediaRepository::class)]
 #[HasLifecycleCallbacks]
@@ -23,7 +22,7 @@ class Media
     private $type;
 
     #[ORM\Column(type: 'string', length: 255)]
-    private $name;
+    private $filePath;
 
     #[ORM\Column(type: 'datetime')]
     private $created_at;
@@ -34,6 +33,11 @@ class Media
     #[ORM\ManyToOne(targetEntity: Tricks::class, inversedBy: 'images')]
     #[ORM\JoinColumn(nullable: false)]
     private $tricks;
+
+    private ?UploadedFile $file = null;
+
+    public function __construct(private ?string $upload_directory = null)
+    {}
 
     public function getId(): ?int
     {
@@ -52,14 +56,14 @@ class Media
         return $this;
     }
 
-    public function getName(): ?string
+    public function getFilePath(): ?string
     {
-        return $this->name;
+        return $this->filePath;
     }
 
-    public function setName(string $name): self
+    public function setFilePath(string $filePath): self
     {
-        $this->name = $name;
+        $this->filePath = $filePath;
 
         return $this;
     }
@@ -88,17 +92,23 @@ class Media
         return $this;
     }
 
-    #[PrePersist]
+    #[ORM\PrePersist]
     public function prePersist()
     {
         $this->setCreatedAt(new DateTime());
         $this->setUpdatedAt($this->getCreatedAt());
     }
 
-    #[PreUpdate]
+    #[ORM\PreUpdate]
     public function preUpdate()
     {
         $this->setUpdatedAt(new DateTime());
+    }
+
+    #[ORM\PostRemove]
+    public function preRemove()
+    {
+        unlink($this->getFilePath());
     }
 
     public function getTricks(): ?Tricks
@@ -111,5 +121,29 @@ class Media
         $this->tricks = $tricks;
 
         return $this;
+    }
+
+    public function setFile(UploadedFile $uploadedFile)
+    {
+        $this->file = $uploadedFile;
+    }
+
+    #[ORM\PrePersist]
+    public function upload()
+    {
+        $extension = $this->file->guessExtension();
+
+        $this->setType($extension);
+
+        $fileName = md5(uniqid()) . '.' . $extension;
+
+        $this->setFilePath($this->upload_directory.'/'.$fileName);
+
+        $this->file->move($this->upload_directory, $fileName);
+    }
+
+    public function getName()
+    {
+        return basename($this->getFilePath());
     }
 }

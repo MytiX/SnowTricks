@@ -271,6 +271,34 @@ a:hover {
     margin-top: 20px;
 }
 
+.image-trick-edit {
+    position: relative;
+}
+
+.image-trick-edit a {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.image-trick-edit a:hover {
+    background-color: #000000ba;
+}
+
+.image-trick-edit a i {
+    display: none;
+    font-size: 40px;
+}
+
+.image-trick-edit a:hover i {
+    display: block;
+}
+
 /* OVERRIDE BOOTSTRAP */
 .dropdown-toggle::after {
     content: none;
