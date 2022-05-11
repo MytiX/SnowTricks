@@ -1,13 +1,20 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Nouveau mot de passe
+{% block title %}Connexion
 {% endblock %}
 
 {% block body %}
 	<div class="row h-100">
 		<div class="col-12 d-flex flex-column justify-content-center align-items-center">
-			<h2 class="sign-title">Nouveau mot de passe</h2>
+			<h2 class="sign-title">Connexion</h2>
 			<div id="sign-container">
+
+				{% if error %}
+                    <div class="alert alert-danger" role="alert">
+                        {{ error.messageKey|trans(error.messageData, 'security') }}
+                    </div>
+				{% endif %}
+
                 
                 {% for message in app.flashes('error') %}
                     <div class="alert alert-danger" role="alert">
@@ -22,14 +29,14 @@
                 {% endfor %}
 
                 {{ form_start(form) }}
-                    <div class="form-group">                    
-                        {{ form_row(form.password.first, {'label': 'Nouveau mot de passe : '}) }}
-                    </div>
-                    <div class="form-group">                    
-                        {{ form_row(form.password.second, {'label': 'Confirmer votre mot de passe : '}) }}
-                    </div>
+                    {{ form_row(form._username, {label: 'Email'}) }}
+                    {{ form_row(form._password, {label: 'Mot de passe'}) }}
+                    <a href="{{ path('app_forgot_password') }}">Mot de passe oublié ?</a>
                     <div class="text-end">
-                        {{ form_row(form.submit, {label: 'Confirmer'}) }}
+                        {{ form_row(form.submit, {label: 'Connexion'}) }}
+					</div>
+                    <div class="text-center">
+                        <a href="{{ path('app_signin') }}">Créer un compte</a>
 					</div>
                 {{ form_end(form) }}
 			</div>

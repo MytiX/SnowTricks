@@ -4,6 +4,7 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
+    app.mailer.contact: '%env(CONTACT_MAIL_SNOWTRICKS)%'
 
 services:
     # default configuration for services in *this* file
@@ -26,3 +27,27 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+
+    App\Security\EventListener\UserSignUpSuccessEmailListener:
+        tags: 
+          - {name: kernel.event_listener, event: user.signup.success}
+        arguments:
+          $contactFrom: '%app.mailer.contact%'
+
+    App\Security\EventListener\UserSigninSuccessEmailListener:
+        tags: 
+          - {name: kernel.event_listener, event: user.signin.success}
+        arguments:
+          $contactFrom: '%app.mailer.contact%'
+
+    App\Security\EventListener\ForgotPasswordSuccessEmail:
+        tags: 
+          - {name: kernel.event_listener, event: user.forgot.password.success}
+        arguments:
+          $contactFrom: '%app.mailer.contact%'
+
+    App\Security\EventListener\ResetPasswordSuccessEmail:
+        tags: 
+          - {name: kernel.event_listener, event: user.reset.password.success}
+        arguments:
+          $contactFrom: '%app.mailer.contact%'
