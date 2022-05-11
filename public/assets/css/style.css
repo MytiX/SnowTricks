@@ -38,9 +38,9 @@ a {
     color: var(--police-color);
 }
 
-a:hover {
+/* a:hover {
     color: inherit;
-}
+} */
 
 #nav-container {
     position: fixed;
@@ -165,6 +165,10 @@ a:hover {
     padding: 0 5px;
 }
 
+.manage-tricks a:hover {
+    color: var(--police-color);
+}
+
 .container-tricks-header {
     position: relative;
     max-height: 70vh;
@@ -275,7 +279,7 @@ a:hover {
     position: relative;
 }
 
-.image-trick-edit a {
+.image-trick-edit div {
     position: absolute;
     top: 0;
     right: 0;
@@ -286,16 +290,18 @@ a:hover {
     justify-content: center;
 }
 
-.image-trick-edit a:hover {
+.image-trick-edit div:hover {
     background-color: #000000ba;
 }
 
-.image-trick-edit a i {
+.image-trick-edit div a i {
     display: none;
     font-size: 40px;
+    color: var(--white);
+    padding: 10px;
 }
 
-.image-trick-edit a:hover i {
+.image-trick-edit div:hover a i {
     display: block;
 }
 

@@ -30,6 +30,9 @@ class Media
     #[ORM\Column(type: 'datetime')]
     private $updated_at;
 
+    #[ORM\Column(type: 'boolean')]
+    private $header = false;
+
     #[ORM\ManyToOne(targetEntity: Tricks::class, inversedBy: 'images')]
     #[ORM\JoinColumn(nullable: false)]
     private $tricks;
@@ -88,6 +91,18 @@ class Media
     public function setUpdatedAt(\DateTimeInterface $updated_at): self
     {
         $this->updated_at = $updated_at;
+
+        return $this;
+    }
+
+    public function getHeader(): bool
+    {
+        return $this->header;
+    }
+
+    public function setHeader(bool $header): self
+    {
+        $this->header = $header;
 
         return $this;
     }

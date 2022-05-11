@@ -42,9 +42,14 @@ class EditTricksController extends AbstractController
             $libraries = $form->get('libraries')->getData();
 
             if (null !== $libraries) {
+                $first = true;
                 foreach ($libraries as $librarie) {
                     $media = new Media($this->getParameter('app.uploads_directory'));
                     $media->setFile($librarie);
+                    if ($first) {
+                        $media->setHeader($first);
+                        $first = false;
+                    }
                     $tricks->addMedias($media);
                 }
             }
@@ -54,11 +59,23 @@ class EditTricksController extends AbstractController
             }
 
             $em->flush();
+
+            if ($request->attributes->get('_route')) {
+                return $this->redirectToRoute('app_edit_tricks', [
+                    'id' => $tricks->getId(),
+                ]);
+            }
         }
 
         return $this->render('edit_tricks/index.html.twig', [
             'formView' => $form->createView(),
             'tricks' => $tricks,
         ]);
+    }
+
+    #[Route('/delete/{id}', name: 'app_delete_tricks')]
+    public function delete(int $id): Response
+    {
+        dd('Tricks effacé ' . $id);
     }
 }

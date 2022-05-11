@@ -40,7 +40,7 @@ class TricksType extends AbstractType
                     new All([
                         'constraints' => [
                             new File([
-                                'maxSize' => '300k',
+                                'maxSize' => '500k',
                                 'mimeTypes' => [
                                     'image/jpeg',
                                     'image/png',

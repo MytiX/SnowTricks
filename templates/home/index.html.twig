@@ -11,8 +11,8 @@
         </div>
     </div>
     <div id="trick-container" class="row">
-    {% for card in 1..15 %}
-        {% include "components/_card.html.twig" %}
+    {% for trick in tricks %}
+        {% include "components/_card.html.twig" with {trick: trick} only %}
     {% endfor %}
     </div>
     <div class="row py-4">
