@@ -30,6 +30,10 @@ class EditTricksController extends AbstractController
             throw new NotFoundHttpException();
         }
 
+        if ('app_edit_tricks' === $request->attributes->get('_route')) {
+            $this->denyAccessUnlessGranted('CAN_EDIT', $tricks, 'Vous ne pouvez pas accéder à cette ressource');
+        }
+
         $form = $this->createForm(TricksType::class, $tricks);
 
         $form->handleRequest($request);
@@ -42,7 +46,7 @@ class EditTricksController extends AbstractController
             $libraries = $form->get('libraries')->getData();
 
             if (null !== $libraries) {
-                
+
                 $header = false;
 
                 if (null === $tricks->getHeaderMedia()) {
@@ -61,6 +65,7 @@ class EditTricksController extends AbstractController
             }
 
             if (null === $tricks->getId()) {
+                $tricks->setUser($this->getUser());
                 $em->persist($tricks);
             }
 

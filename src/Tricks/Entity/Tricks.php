@@ -3,6 +3,7 @@
 namespace App\Tricks\Entity;
 
 use DateTime;
+use App\Entity\User;
 use App\Media\Entity\Media;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\PreUpdate;
@@ -38,6 +39,10 @@ class Tricks
 
     #[ORM\OneToMany(mappedBy: 'tricks', targetEntity: Media::class, orphanRemoval: true, cascade: ["persist"])]
     private $medias;
+
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'tricks')]
+    #[ORM\JoinColumn(nullable: false)]
+    private $user;
 
     public function __construct()
     {
@@ -164,5 +169,17 @@ class Tricks
             }
         }
         return null;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+
+        return $this;
     }
 }
