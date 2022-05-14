@@ -17,7 +17,7 @@
                     <div class="col-2 image-trick-edit">
                         <img class="img-fluid" src="{{ asset('uploads/' ~ media.name) }}">
                         <div>                     
-                            <a href="{{ path('app_header_media', {tricks_id: tricks.id, media_id: media.id})}}" data-media="{{ media.id }}" data-header data-token="{{ csrf_token('header' ~ tricks.id ~ media.id) }}"><i class="{% if media.header == true %}bi bi-heart-fill{% else %}bi bi-heart{% endif %}"></i></a>
+                            <a href="{{ path('app_header_media', {media_id: media.id})}}" data-media="{{ media.id }}" data-header data-token="{{ csrf_token('header' ~ media.id) }}"><i class="{% if media.header == true %}bi bi-heart-fill{% else %}bi bi-heart{% endif %}"></i></a>
                             <a href="{{ path('app_delete_media', {id: media.id})}}" data-delete data-token="{{ csrf_token('delete' ~ media.id) }}"><i class="bi bi-trash-fill"></i></a>
                         </div>
                     </div>
