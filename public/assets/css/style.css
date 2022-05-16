@@ -140,19 +140,13 @@ a {
     background-color: var(--white);
 }
 
-.trick-content:hover {
-    transform: scale(1.1);
-    transition: 0.3s;
-}
-
 .img-tricks {
     padding: 5px;
 }
 
 .manage-tricks {
     display: flex;
-    justify-content: center;
-    padding: 10px 10px;
+    padding: 10px;
     background-color: var(--white);
 }
 
@@ -313,6 +307,17 @@ a {
     content: none;
 }
 /* END OVERRIDE BOOTSTRAP */
+
+.loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.none {
+    display: none !important;
+}
 
 @media (min-width: 576px) { 
 

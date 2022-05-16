@@ -20,6 +20,8 @@ class DeleteTricksController extends AbstractController
             return $this->redirectToRoute('app_home');
         }
 
+        $this->denyAccessUnlessGranted('CAN_DELETE', $tricks);
+
         $em->remove($tricks);
         $em->flush();
 

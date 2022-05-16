@@ -1,12 +1,15 @@
-<div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 py-2">
+<div class="col-12 col-sm-6 col-md-4 col-lg-3">
     <div class="trick-content">
         <div class="img-tricks">
             <a href="{{ path('app_tricks_detail', { id: trick.id }) }}"><img class="img-fluid" src="{{ asset('uploads/' ~ trick.headerMedia.name) }}" alt=""></a>
         </div>
         <div class="manage-tricks">
-            <h3><a href="article.html">{{ trick.name }}</a></h3>
-            <a href="{{ path('app_edit_tricks', {id: trick.id}) }}" class="ms-auto"><i class="bi bi-pencil-fill"></i></a>
-            <a href="{{ path('app_delete_tricks', {id: trick.id}) }}"><i class="bi bi-trash-fill"></i></i></a>
+            <h3><a href="{{ path('app_tricks_detail', {id: trick.id}) }}">{{ trick.name }}</a></h3>
+            {% if trick.user == app.user %}
+                <a href="{{ path('app_edit_tricks', {id: trick.id}) }}" class="ms-auto"><i class="bi bi-pencil-fill"></i></a>
+                <a href="{{ path('app_delete_tricks', {id: trick.id}) }}"><i class="bi bi-trash-fill"></i></i></a>
+            {% endif %}
+            
         </div>
     </div>
 </div>

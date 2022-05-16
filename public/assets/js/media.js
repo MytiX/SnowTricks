@@ -1,6 +1,7 @@
 window.onload = () => {
     let links_delete = document.querySelectorAll("[data-delete]")
     let links_header = document.querySelectorAll("[data-header]")
+    let view_more = document.getElementById("view-more")
     
     links_delete.forEach(link_delete => {
         link_delete.addEventListener("click", (e) => {
@@ -57,5 +58,36 @@ window.onload = () => {
                 }
             }).catch(e => alert(e))
         })
+    })
+
+    view_more.addEventListener('click', (e) => {
+        fetch(link_header.getAttribute("href"), {
+            method: "PUT",
+            headers: {
+                'X-Requested-With': "XMLHttpRequest",
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({'_token': link_header.getAttribute('data-token')})
+        }).then(
+            response => response.json()
+        ).then(data => {
+            if (data.success) {
+                if (data.old_media_id != link_header.getAttribute('data-media')) {
+                    link_header.firstElementChild.classList.remove('bi-heart')
+                    link_header.firstElementChild.classList.add('bi-heart-fill')
+
+                    let medias = document.querySelectorAll("[data-media]")
+
+                    for (media of medias) {
+                        if (data.old_media_id == media.getAttribute('data-media')) {
+                            media.firstElementChild.classList.remove('bi-heart-fill')
+                            media.firstElementChild.classList.add('bi-heart')
+                        }
+                    }
+                }
+            } else {
+                alert(data.error)
+            }
+        }).catch(e => alert(e))
     })
 }

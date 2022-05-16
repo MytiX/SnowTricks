@@ -12,7 +12,7 @@ class TricksVoter extends Voter
 {
     public function supports(string $attribute, $subject)
     {
-        return in_array($attribute, ['CAN_EDIT']) && $subject instanceof Tricks;
+        return in_array($attribute, ['CAN_EDIT', 'CAN_DELETE']) && $subject instanceof Tricks;
     }
 
     public function voteOnAttribute(string $attribute, $subject, TokenInterface $token)
@@ -25,6 +25,9 @@ class TricksVoter extends Voter
 
         switch ($attribute) {
             case 'CAN_EDIT':
+                return $subject->getUser() === $user;
+
+            case 'CAN_DELETE':
                 return $subject->getUser() === $user;
         }
 
