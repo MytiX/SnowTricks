@@ -7,6 +7,7 @@ parameters:
 
     app.mailer.contact: '%env(CONTACT_MAIL_SNOWTRICKS)%'
     app.uploads_directory: '%kernel.project_dir%/public/uploads'
+    app.home.pagination: 2
 
 services:
     # default configuration for services in *this* file
@@ -53,3 +54,7 @@ services:
           - {name: kernel.event_listener, event: user.reset.password.success}
         arguments:
           $contactFrom: '%app.mailer.contact%'
+
+    App\Tricks\Repository\TricksRepository:
+        arguments:
+          $limit: '%app.home.pagination%'

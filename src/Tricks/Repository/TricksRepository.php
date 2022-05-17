@@ -16,9 +16,12 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
  */
 class TricksRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    private int $limit;
+
+    public function __construct(ManagerRegistry $registry, int $limit)
     {
         parent::__construct($registry, Tricks::class);
+        $this->limit = $limit;
     }
 
     /**
@@ -43,5 +46,15 @@ class TricksRepository extends ServiceEntityRepository
         if ($flush) {
             $this->_em->flush();
         }
+    }
+
+    public function findByPagination($pagination)
+    {
+        return $this->createQueryBuilder('t')
+            ->setMaxResults($this->limit)            
+            ->setFirstResult($pagination * $this->limit)
+            ->getQuery()
+            ->getResult()
+        ;
     }
 }
