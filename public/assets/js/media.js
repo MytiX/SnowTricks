@@ -65,12 +65,11 @@ window.onload = () => {
     view_more.addEventListener('click', (e) => {
         e.preventDefault()
         
-        linkElement = view_more.firstElementChild
-        pagination = linkElement.getAttribute('data-pagination')
+        let linkElement = view_more.firstElementChild
+        let spanElement = view_more.lastElementChild
 
-        // view_more.setAttribute('data-pagination', parseInt(pagination) + 1)
-
-        link = linkElement.getAttribute("href") + '?pagination=' + pagination
+        page = linkElement.getAttribute('data-page')
+        link = linkElement.getAttribute("href") + '?page=' + page
 
         loader.classList.toggle('none')
         view_more.classList.toggle('none')
@@ -80,29 +79,19 @@ window.onload = () => {
             headers: {
                 'X-Requested-With': "XMLHttpRequest",
                 'Content-Type': 'application/json'
-            }
+            },
         }).then(
             response => response.json()
         ).then(data => {
             trick_container.innerHTML += data.content
+
             loader.classList.toggle('none')
-            view_more.classList.toggle('none')
 
-            // if (data.success) {
-            //     if (data.old_media_id != link_header.getAttribute('data-media')) {
-            //         link_header.firstElementChild.classList.remove('bi-heart')
-            //         link_header.firstElementChild.classList.add('bi-heart-fill')
-
-            //         let medias = document.querySelectorAll("[data-media]")
-
-            //         for (media of medias) {
-            //             if (data.old_media_id == media.getAttribute('data-media')) {
-            //                 media.firstElementChild.classList.remove('bi-heart-fill')
-            //                 media.firstElementChild.classList.add('bi-heart')
-            //             }
-            //         }
-            //     }
-            // }
-        }).catch(e => alert(e))
+            if (data.page != null) {
+                linkElement.setAttribute('data-page', data.page)
+                view_more.classList.toggle('none')
+            }
+            
+        }).catch()
     })
 }

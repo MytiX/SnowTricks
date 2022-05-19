@@ -48,8 +48,10 @@ class TricksRepository extends ServiceEntityRepository
         }
     }
 
-    public function findByPagination($pagination)
+    public function findByPagination(int $pagination)
     {
+        dump($pagination, $this->limit, $pagination * $this->limit);
+
         return $this->createQueryBuilder('t')
             ->setMaxResults($this->limit)            
             ->setFirstResult($pagination * $this->limit)
