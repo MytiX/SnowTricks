@@ -7,7 +7,7 @@ parameters:
 
     app.mailer.contact: '%env(CONTACT_MAIL_SNOWTRICKS)%'
     app.uploads_directory: '%kernel.project_dir%/public/uploads'
-    app.home.pagination: 2
+    app.home.number.item: 2
 
 services:
     # default configuration for services in *this* file
@@ -57,4 +57,4 @@ services:
 
     App\Tricks\Repository\TricksRepository:
         arguments:
-          $limit: '%app.home.pagination%'
+          $limitPerPage: '%app.home.number.item%'

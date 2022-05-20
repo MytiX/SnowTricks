@@ -14,7 +14,7 @@
         {% include "components/_card.html.twig" with {tricks: tricks} only %}
     </div>
     <div class="row py-4">
-        {% include "components/_loader.html.twig" %}
+        {% include "components/_loader.html.twig" with {page: page} %}
     </div>
 
 {% endblock %}

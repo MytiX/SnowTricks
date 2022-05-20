@@ -14,12 +14,16 @@ class HomeController extends AbstractController
     {
         $tricks = $tricksRepository->findByPagination(0);
 
-        if (count($tricks) == $this->getParameter('app.home.pagination')) {
+        $page = false;
+
+        if (count($tricks) > $this->getParameter('app.home.number.item')) {
             array_pop($tricks);
+            $page = true;
         }
 
         return $this->render('home/index.html.twig', [
-            'tricks' => $tricks
+            'tricks' => $tricks,
+            'page' => $page
         ]);
     }
 }

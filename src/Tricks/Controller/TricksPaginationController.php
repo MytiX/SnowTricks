@@ -6,7 +6,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-
+#[Route('/api')]
 class TricksPaginationController extends AbstractController
 {
     #[Route('/tricks', name: 'app_tricks', methods:['GET'])]
@@ -18,17 +18,12 @@ class TricksPaginationController extends AbstractController
 
         $response = [];
         
-        dump($tricks);
-
-        if (count($tricks) == $this->getParameter('app.home.pagination')) {
+        if (count($tricks) > $this->getParameter('app.home.number.item')) {
             array_pop($tricks);
             $response['page'] = $page + 1;
         } else {
             $response['page'] = null;
         }
-
-        dd($tricks);
-
 
         $content = $this->renderView('components/_card.html.twig', [
             'tricks' => $tricks,

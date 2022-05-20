@@ -66,7 +66,6 @@ window.onload = () => {
         e.preventDefault()
         
         let linkElement = view_more.firstElementChild
-        let spanElement = view_more.lastElementChild
 
         page = linkElement.getAttribute('data-page')
         link = linkElement.getAttribute("href") + '?page=' + page
