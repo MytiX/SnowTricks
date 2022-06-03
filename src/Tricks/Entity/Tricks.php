@@ -5,6 +5,7 @@ namespace App\Tricks\Entity;
 use DateTime;
 use App\Entity\User;
 use App\Media\Entity\Media;
+use App\Media\Entity\Picture;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\PreUpdate;
 use Doctrine\ORM\Mapping\PrePersist;
@@ -163,6 +164,9 @@ class Tricks
 
         if (null !== $medias) {            
             foreach ($medias as $media) {
+                if (!$media instanceof Picture) {
+                    continue;
+                }
                 if (true === $media->getHeader()) {
                     return $media;
                 }

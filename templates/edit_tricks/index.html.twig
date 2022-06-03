@@ -33,6 +33,8 @@
                     {{ form_row(formView.description, { 'label': 'Description' }) }}
                     {{ form_row(formView.group_stunt, { 'label': 'Type de tricks' }) }}
                     {{ form_row(formView.libraries, { 'label': "Bibliothèque d'images" }) }}
+                    {{ form_row(formView.embeds, { 'label': 'Embed'}) }}
+                    <button id="more_embed" class="btn btn-primary"><i class="bi bi-plus"></i></button>
 
                     <div class="text-end">
                         {{ form_row(formView.submit, { 'label': 'Envoyer' }) }}
@@ -43,4 +45,11 @@
         </div>
     </div>
 
+{% endblock %}
+
+{% block script %}
+    {% if app.request.attributes.get('_route') == 'app_edit_tricks' %}
+        <script src="{{ asset('assets/js/tricks_media.js') }}"></script>
+    {% endif %}
+    <script src="{{ asset('assets/js/tricks_embed.js') }}"></script>
 {% endblock %}

@@ -3,6 +3,7 @@
 namespace App\Media\Controller;
 
 use App\Media\Entity\Media;
+use App\Media\Entity\Picture;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Media\Repository\MediaRepository;
 use Symfony\Component\HttpFoundation\Request;
@@ -55,7 +56,10 @@ class MediaController extends AbstractController
             $this->denyAccessUnlessGranted('CAN_EDIT', $media, 'Vous ne pouvez pas accéder à cette ressource');
 
             foreach ($tricks->getMedias() as $media) {
-                /** @var Media $media */
+                if (!$media instanceof Picture) {
+                    continue;
+                }
+                /** @var Picture $media */
                 if (true === $media->getHeader()) {
                     $media->setHeader(false);
                     $old_media = $media->getId();

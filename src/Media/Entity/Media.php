@@ -6,23 +6,22 @@ use DateTime;
 use App\Tricks\Entity\Tricks;
 use Doctrine\ORM\Mapping as ORM;
 use App\Media\Repository\MediaRepository;
+use Doctrine\ORM\Mapping\InheritanceType;
+use Doctrine\ORM\Mapping\DiscriminatorMap;
+use Doctrine\ORM\Mapping\DiscriminatorColumn;
 use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 
+#[InheritanceType('SINGLE_TABLE')]
+#[DiscriminatorColumn(name: 'type', type: 'string')]
+#[DiscriminatorMap([Picture::class => Picture::class, Embed::class => Embed::class])]
 #[ORM\Entity(repositoryClass: MediaRepository::class)]
 #[HasLifecycleCallbacks]
-class Media
+abstract class Media
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
     private $id;
-
-    #[ORM\Column(type: 'string', length: 30)]
-    private $type;
-
-    #[ORM\Column(type: 'string', length: 255)]
-    private $filePath;
 
     #[ORM\Column(type: 'datetime')]
     private $created_at;
@@ -30,45 +29,13 @@ class Media
     #[ORM\Column(type: 'datetime')]
     private $updated_at;
 
-    #[ORM\Column(type: 'boolean')]
-    private $header = false;
-
     #[ORM\ManyToOne(targetEntity: Tricks::class, inversedBy: 'medias')]
     #[ORM\JoinColumn(nullable: false)]
     private $tricks;
 
-    private ?UploadedFile $file = null;
-
-    public function __construct(private ?string $upload_directory = null)
-    {}
-
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getType(): ?string
-    {
-        return $this->type;
-    }
-
-    public function setType(string $type): self
-    {
-        $this->type = $type;
-
-        return $this;
-    }
-
-    public function getFilePath(): ?string
-    {
-        return $this->filePath;
-    }
-
-    public function setFilePath(string $filePath): self
-    {
-        $this->filePath = $filePath;
-
-        return $this;
     }
 
     public function getCreatedAt(): ?\DateTimeInterface
@@ -95,18 +62,6 @@ class Media
         return $this;
     }
 
-    public function getHeader(): bool
-    {
-        return $this->header;
-    }
-
-    public function setHeader(bool $header): self
-    {
-        $this->header = $header;
-
-        return $this;
-    }
-
     #[ORM\PrePersist]
     public function prePersist()
     {
@@ -120,12 +75,6 @@ class Media
         $this->setUpdatedAt(new DateTime());
     }
 
-    #[ORM\PostRemove]
-    public function preRemove()
-    {
-        unlink($this->getFilePath());
-    }
-
     public function getTricks(): ?Tricks
     {
         return $this->tricks;
@@ -136,29 +85,5 @@ class Media
         $this->tricks = $tricks;
 
         return $this;
-    }
-
-    public function setFile(UploadedFile $uploadedFile)
-    {
-        $this->file = $uploadedFile;
-    }
-
-    #[ORM\PrePersist]
-    public function upload()
-    {
-        $extension = $this->file->guessExtension();
-
-        $this->setType($extension);
-
-        $fileName = md5(uniqid()) . '.' . $extension;
-
-        $this->setFilePath($this->upload_directory.'/'.$fileName);
-
-        $this->file->move($this->upload_directory, $fileName);
-    }
-
-    public function getName()
-    {
-        return basename($this->getFilePath());
     }
 }
