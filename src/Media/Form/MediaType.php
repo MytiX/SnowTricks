@@ -20,20 +20,15 @@ class MediaType extends AbstractType
     {
         $builder
             ->add('medias_choice', ChoiceType::class, [
-                'label' => 'Choisissez votre média',
                 'choices' => [
-                    '' => '',
                     'Picture' => 'picture',
                     'Embed' => 'embed',
                 ],
-                'mapped' => false,
+                'placeholder' => '',
+                'label' => 'Selectionner votre média'
             ])
-            ->add('picture', PictureType::class, [
-                'required' => false
-            ])
-            ->add('embed', EmbedType::class, [
-                'required' => false
-            ])
+            ->add('embed', EmbedType::class)
+            ->add('picture', PictureType::class)
         ;
     }
 

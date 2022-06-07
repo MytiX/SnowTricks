@@ -18,9 +18,7 @@ class TricksType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name', TextType::class, [
-                'required' => false
-            ])
+            ->add('name')
             ->add('description', TextareaType::class, [
                 'required' => false
             ])
@@ -36,13 +34,16 @@ class TricksType extends AbstractType
                 ],
                 'required' => false
             ])
-            ->add('medias', CollectionType::class, [
+            ->add('tempMedias', CollectionType::class, [
                 'entry_type' => MediaType::class,
+                'entry_options' => [
+                    'label' => false
+                ],
                 'allow_add' => true,
                 'prototype' => true,
-                'required' => false
-            ])
-            ->add("submit", SubmitType::class)
+                'required' => false,
+            ])            
+            ->add('submit', SubmitType::class)
         ;
     }
 

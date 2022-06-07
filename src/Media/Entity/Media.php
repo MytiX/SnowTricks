@@ -6,15 +6,12 @@ use DateTime;
 use App\Tricks\Entity\Tricks;
 use Doctrine\ORM\Mapping as ORM;
 use App\Media\Repository\MediaRepository;
-use Doctrine\ORM\Mapping\InheritanceType;
-use Doctrine\ORM\Mapping\DiscriminatorMap;
-use Doctrine\ORM\Mapping\DiscriminatorColumn;
 use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
 
-#[InheritanceType('SINGLE_TABLE')]
-#[DiscriminatorColumn(name: 'type', type: 'string')]
-#[DiscriminatorMap([Picture::class => Picture::class, Embed::class => Embed::class])]
 #[ORM\Entity(repositoryClass: MediaRepository::class)]
+#[ORM\InheritanceType("SINGLE_TABLE")]
+#[ORM\DiscriminatorColumn(name: 'type', type: 'string')]
+#[ORM\DiscriminatorMap(["embed" => Embed::class, 'picture' => Picture::class])]
 #[HasLifecycleCallbacks]
 abstract class Media
 {

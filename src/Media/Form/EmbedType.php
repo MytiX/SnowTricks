@@ -14,7 +14,10 @@ class EmbedType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('embed', TextType::class)
+            ->add('embed', TextType::class, [
+                'label' => false,
+                'required' => false,
+            ])
         ;
     }
 

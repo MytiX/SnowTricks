@@ -45,6 +45,8 @@ class Tricks
     #[ORM\JoinColumn(nullable: false)]
     private $user;
 
+    private $tempMedias;
+
     public function __construct()
     {
         $this->medias = new ArrayCollection();
@@ -185,5 +187,15 @@ class Tricks
         $this->user = $user;
 
         return $this;
+    }
+
+    public function setTempMedias(array $medias)
+    {
+        $this->tempMedias = $medias;
+    }
+
+    public function getTempMedias(): array
+    {
+        return $this->tempMedias;
     }
 }

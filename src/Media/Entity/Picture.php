@@ -8,7 +8,6 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 #[ORM\Entity()]
 class Picture extends Media
 {
-
     #[ORM\Column(type: 'string', length: 255)]
     private $filePath;
 

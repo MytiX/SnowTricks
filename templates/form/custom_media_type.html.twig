@@ -1,13 +1,15 @@
 {% block media_row %}
     {% for child in form.children|filter(child => not child.rendered) %}
 
-    {% set class = '' %}
+        {% set class = '' %}
 
-    {% if child.vars.name == 'picture' %}
-        {% set class = 'picture_element' %}
-    {% elseif child.vars.name == 'embed' %}
-        {% set class = 'embed_element' %}        
-    {% endif %}
+        {% if child.vars.name == 'picture' %}
+            {% set class = 'picture_element' %}
+        {% elseif child.vars.name == 'embed' %}
+            {% set class = 'embed_element' %}    
+        {% elseif child.vars.name == 'medias_choice' %}
+            {% set class = 'medias_choice' %}        
+        {% endif %}
 
         <div class="mb-3 {{ class }}">
             {{ form_label(child) }}

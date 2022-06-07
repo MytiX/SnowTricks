@@ -1,45 +1,45 @@
-// let btnMoreEmbed = document.getElementById('more_embed')
+window.onload = () => {
 
-// let prototype = document.getElementById('tricks_embeds')
-
-// let inputProtype = prototype.getAttribute('data-prototype')
-
-// let parentProtype = prototype.parentElement
-
-// inputProtype = inputProtype.replace('__name__label__', 'Youtube')
-
-// btnMoreEmbed.addEventListener('click', (e) => {
+    var stringToHTML = function (str, count) {
+        str = str.replace(/__name__/g, count)
+        var parser = new DOMParser();
+        var doc = parser.parseFromString(str, 'text/html');
+        return doc.body;
+    };
     
-//     let test = document.querySelectorAll('[data_embed]')
+    let btnMoreMedia = document.getElementById('more_media')
+    let tricksMedias = document.getElementById('tricks_tempMedias')
 
-//     let tempInputPrototype = inputProtype.replace(/__name__/g, test.length)
+    let count = 0
+    
+    btnMoreMedia.addEventListener('click', (btnEvent) => {
 
-//     parentProtype.innerHTML += tempInputPrototype 
-// })
+        btnEvent.preventDefault()
 
-let btnMoreMedia = document.getElementById('more_media')
-let btnDeleteMedia = document.querySelectorAll('.delete_media')
-let prototype = document.getElementById('tricks_medias')
-let inputProtype = prototype.getAttribute('data-prototype')
-// let embed = inputProtype.getElementsByClassname('embed_element')
-// let picture = inputProtype.getElementsByClassname('picture_element')
-let parentProtype = prototype.parentElement
+        let inputProtype = stringToHTML(tricksMedias.getAttribute('data-prototype'), count)
 
-btnMoreMedia.addEventListener('click', (e) => {
-    e.preventDefault()
+        let inputSelectMedia = inputProtype.getElementsByClassName('medias_choice')[0]
 
-    parentProtype.innerHTML += inputProtype 
-    updateBtnDelete()
-})
+        tricksMedias.appendChild(inputSelectMedia)
 
+        inputSelectMedia.addEventListener('change', (inputEvent) => {
+            let value = inputEvent.target.value
+            
+            let input = inputProtype.getElementsByClassName(value+'_element')[0]
 
-function updateBtnDelete()
-{
-    btnDeleteMedia = document.querySelectorAll('.delete_media')
-    btnDeleteMedia.forEach(element => {
-        element.addEventListener('click', (e) => {
-            e.preventDefault()
-            element.parentElement.remove()
+            tricksMedias.appendChild(input)
+
+            inputSelectMedia.remove()
+
+            let btnDeleteMedia = document.querySelectorAll('.delete_media')
+
+            btnDeleteMedia.forEach(btnDelete => {
+                btnDelete.addEventListener('click', () => {
+                    btnDelete.parentElement.remove()
+                })
+            });
+
         })
+        count++
     })
 }
