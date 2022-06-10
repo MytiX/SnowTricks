@@ -28,14 +28,8 @@ class MediaType extends AbstractType implements DataMapperInterface
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('medias_choice', ChoiceType::class, [
-                'choices' => [
-                    'Picture' => 'picture',
-                    'Embed' => 'embed',
-                ],
-                'placeholder' => '',
-                'label' => 'Selectionner votre média',
-                'mapped' => false
+            ->add('medias_choice', MediasChoiceType::class, [
+                'label' => false,
             ])
             ->add('embed', EmbedType::class, [
                 'label' => false
@@ -77,8 +71,8 @@ class MediaType extends AbstractType implements DataMapperInterface
         // }
 
         if ($viewData instanceof Picture && array_key_exists('picture', $forms)) {
-            dd($viewData);
-            $forms['picture']->setData($viewData->getFile());
+            // dd($viewData);
+            $forms['picture']->setData($viewData);
         }
 
         if ($viewData instanceof Embed && array_key_exists('embed', $forms)) {

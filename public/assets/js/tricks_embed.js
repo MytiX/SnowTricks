@@ -8,7 +8,7 @@ window.onload = () => {
     };
     
     let btnMoreMedia = document.getElementById('more_media')
-    let tricksMedias = document.getElementById('tricks_tempMedias')
+    let tricksMedias = document.getElementById('tricks_medias')
 
     let count = 0
     
@@ -16,30 +16,32 @@ window.onload = () => {
 
         btnEvent.preventDefault()
 
-        let inputProtype = stringToHTML(tricksMedias.getAttribute('data-prototype'), count)
+        let inputPrototype = stringToHTML(tricksMedias.getAttribute('data-prototype'), count)
+        
+        // let inputSelectMedia = inputPrototype.getElementById('medias_choice')
+        
+        console.log(inputPrototype);
 
-        let inputSelectMedia = inputProtype.getElementsByClassName('medias_choice')[0]
+        // tricksMedias.appendChild(inputSelectMedia)
 
-        tricksMedias.appendChild(inputSelectMedia)
-
-        inputSelectMedia.addEventListener('change', (inputEvent) => {
-            let value = inputEvent.target.value
+        // inputSelectMedia.addEventListener('change', (inputEvent) => {
+        //     let value = inputEvent.target.value
             
-            let input = inputProtype.getElementsByClassName(value+'_element')[0]
+        //     let input = inputPrototype.getElementsByClassName(value+'_element')[0]
 
-            tricksMedias.appendChild(input)
+        //     tricksMedias.appendChild(input)
 
-            inputSelectMedia.remove()
+        //     inputSelectMedia.remove()
 
-            let btnDeleteMedia = document.querySelectorAll('.delete_media')
+        //     let btnDeleteMedia = document.querySelectorAll('.delete_media')
 
-            btnDeleteMedia.forEach(btnDelete => {
-                btnDelete.addEventListener('click', () => {
-                    btnDelete.parentElement.remove()
-                })
-            });
+        //     btnDeleteMedia.forEach(btnDelete => {
+        //         btnDelete.addEventListener('click', () => {
+        //             btnDelete.parentElement.remove()
+        //         })
+        //     });
 
-        })
+        // })
         count++
     })
 }

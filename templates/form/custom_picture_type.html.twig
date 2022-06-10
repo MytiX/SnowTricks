@@ -1,4 +1,4 @@
-{% block embed_widget %}
+{# {% block picture_widget %}
     {% for child in form.children|filter(child => not child.rendered) %}
     <div class="row align-items-center">
         {% if child.vars.value == null %}
@@ -9,6 +9,9 @@
                         class: 'pe-5'
                     }
                 }) }}              
+
+                <div class="d-flex justify-content-center gap-2">
+                </div>
                 {{ form_help(child) }}
                 {{ form_errors(child) }}
             </div>
@@ -17,9 +20,7 @@
                 {{ child.vars.value | raw }}
             </div>        
         {% endif %}
-        <div class="col">
-            <button type="button" class="btn btn-danger delete_media"><i class="bi bi-trash"></i></button>  
-        </div>
+        <button type="button" class="btn btn-danger delete_media"><i class="bi bi-trash"></i></button>  
     </div>
     {% endfor %}
-{% endblock %}
+{% endblock %} #}
