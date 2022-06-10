@@ -28,7 +28,7 @@ class AppFixtures extends Fixture
             ->setTokenAuth(sha1('token'.$user->getEmail()))
             ->setActive(1);
 
-        $embed->setEmbed('Embed 1');
+        $embed->setEmbedContent('Embed 1');
 
         $picture->setFilePath('/var/www/public/uploads/bc9b7209720dc85167cee77f9bff18a6.jpg');
 

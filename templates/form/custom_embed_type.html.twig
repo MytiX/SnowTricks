@@ -1,0 +1,27 @@
+{% block embed_widget %}
+    {% for child in form.children|filter(child => not child.rendered) %}
+    <div class="row align-items-center">
+        <div class="col-6">
+            <div class="mb-3">
+                {{ form_label(child, 'Embed vidéo') }}
+                <div class="d-flex justify-content-center gap-2">
+                    {{ form_widget(child, {
+                        attr: {
+                            class: 'pe-5'
+                        }
+                    }) }}
+                    <button type="button" class="btn btn-danger delete_media"><i class="bi bi-trash"></i></button>                
+                </div>
+                {{ form_help(child) }}
+                {{ form_errors(child) }}
+            </div>
+        </div>
+        {% if child.vars.value != null %}
+            <div class="col-3 embed-content">
+                {{ child.vars.value | raw }}
+            </div>
+        
+        {% endif %}
+    </div>
+    {% endfor %}
+{% endblock %}

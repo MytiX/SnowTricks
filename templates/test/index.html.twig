@@ -3,16 +3,32 @@
 {% block title %}Hello CGUController!{% endblock %}
 
 {% block body %}
+
+    {# {{ form_start(form) }}
+        {{ form_row(form.description) }}
+
+        <h3>Tags</h3>
+        <ul class="tags">
+            {% for tag in form.tags %}
+                <li>{{ form_row(tag.name) }}</li>
+            {% endfor %}
+        </ul>
+    {{ form_end(form) }} #}
+
     {{ form_start(form) }}
         {{ form_row(form.name, { 'label': 'Nom de la figure' }) }}
         {{ form_row(form.description, { 'label': 'Description' }) }}
         {{ form_row(form.group_stunt, { 'label': 'Type de tricks' }) }}
-        {{ form_row(form.tempMedias, { 'label': "Médias" }) }}
+        {# {{ form_row(form.tempMedias, { 'label': "Médias" }) }} #}
+        
+        {{ form_row(form.medias) }}
+
         <button id="more_media" class="btn btn-primary"><i class="bi bi-plus"></i></button>
         <div class="text-end">
             {{ form_row(form.submit, { 'label': 'Envoyer' }) }}
         </div>
     {{ form_end(form) }}
+
 {% endblock %}
 
 {% block script %}

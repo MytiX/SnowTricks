@@ -1,4 +1,7 @@
 {% block media_row %}
+
+    {{- block(form_widget) -}}
+
     {% for child in form.children|filter(child => not child.rendered) %}
 
         {% set class = '' %}

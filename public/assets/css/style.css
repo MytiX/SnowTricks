@@ -319,6 +319,13 @@ a {
     display: none !important;
 }
 
+.embed-content iframe
+{
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16/9;
+}
+
 @media (min-width: 576px) { 
 
 }

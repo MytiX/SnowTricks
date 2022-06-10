@@ -2,6 +2,7 @@
 
 namespace App\Tricks\Form;
 
+use App\Media\Form\EmbedType;
 use App\Media\Form\MediaType;
 use App\Tricks\Entity\Tricks;
 use Symfony\Component\Form\AbstractType;
@@ -34,15 +35,16 @@ class TricksType extends AbstractType
                 ],
                 'required' => false
             ])
-            ->add('tempMedias', CollectionType::class, [
+            ->add('medias', CollectionType::class, [
                 'entry_type' => MediaType::class,
                 'entry_options' => [
                     'label' => false
                 ],
                 'allow_add' => true,
+                'allow_delete' => true,
                 'prototype' => true,
                 'required' => false,
-            ])            
+            ])
             ->add('submit', SubmitType::class)
         ;
     }

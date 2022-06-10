@@ -8,16 +8,16 @@ use Doctrine\ORM\Mapping as ORM;
 class Embed extends Media
 {
     #[ORM\Column(type: 'text')]
-    private $embed;
+    private $embedContent;
 
-    public function getEmbed(): bool
+    public function getEmbedContent(): string
     {
-        return $this->embed;
+        return $this->embedContent;
     }
 
-    public function setEmbed(string $embed): self
+    public function setEmbedContent(string $embedContent): self
     {
-        $this->embed = $embed;
+        $this->embedContent = $embedContent;
 
         return $this;
     }
