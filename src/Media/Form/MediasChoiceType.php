@@ -35,7 +35,7 @@ class MediasChoiceType extends AbstractType
                 ],
                 'placeholder' => '',
                 'label' => 'Selectionner votre média',
-                'mapped' => false,
+                'mapped' => false
             ])
         ;
 

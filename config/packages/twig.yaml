@@ -4,7 +4,6 @@ twig:
         - 'form/custom_embed_type.html.twig'
         - 'form/custom_picture_type.html.twig'
         - 'form/custom_medias_choice.html.twig'
-        # - 'form/custom_media_type.html.twig'
         - 'bootstrap_5_layout.html.twig'
 
 when@test:

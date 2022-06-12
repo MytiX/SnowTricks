@@ -37,9 +37,10 @@ class TricksType extends AbstractType
             ])
             ->add('medias', CollectionType::class, [
                 'entry_type' => MediaType::class,
+                'entry_options' => ['label' => false],
                 'allow_add' => true,
                 'allow_delete' => true,
-                'prototype' => true,
+                // 'prototype' => true,
                 'required' => false,
             ])
             ->add('submit', SubmitType::class)

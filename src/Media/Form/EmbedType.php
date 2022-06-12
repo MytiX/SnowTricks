@@ -14,7 +14,7 @@ class EmbedType extends AbstractType
     {
         $builder
             ->add('embedContent', TextType::class, [
-                'label' => 'Embed'
+                'label' => 'Embed vidéo'
             ])
         ;
     }

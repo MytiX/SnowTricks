@@ -1,47 +1,61 @@
-window.onload = () => {
-
+window.addEventListener("DOMContentLoaded", (event) => {
+    const removeChoiceType = () => {
+        document.querySelectorAll('.choice-type').forEach(choiceType => {
+            choiceType.parentElement.remove()
+        })
+    }
+    removeChoiceType()
+    
     var stringToHTML = function (str, count) {
         str = str.replace(/__name__/g, count)
         var parser = new DOMParser();
         var doc = parser.parseFromString(str, 'text/html');
         return doc.body;
     };
-    
-    let btnMoreMedia = document.getElementById('more_media')
-    let tricksMedias = document.getElementById('tricks_medias')
 
-    let count = 0
-    
-    btnMoreMedia.addEventListener('click', (btnEvent) => {
 
-        btnEvent.preventDefault()
+    const addFormToCollection = (event) => {
+        event.preventDefault()
+        containerCollection = document.getElementById('container-' + event.currentTarget.dataset.collectionHolderClass);
 
-        let inputPrototype = stringToHTML(tricksMedias.getAttribute('data-prototype'), count)
-        
-        // let inputSelectMedia = inputPrototype.getElementById('medias_choice')
-        
-        console.log(inputPrototype);
+            inputCollection = containerCollection
+                .dataset
+                .prototype
+                .replace(
+                    /__name__/g,
+                    containerCollection.dataset.index
+            );
 
-        // tricksMedias.appendChild(inputSelectMedia)
+            prototypeInput = stringToHTML(inputCollection)
 
-        // inputSelectMedia.addEventListener('change', (inputEvent) => {
-        //     let value = inputEvent.target.value
-            
-        //     let input = inputPrototype.getElementsByClassName(value+'_element')[0]
+            let choiceInput = prototypeInput.getElementsByClassName('choice-type')[0].parentElement
+            let pictureInput = prototypeInput.getElementsByClassName('picture-type')[0].parentElement
+            let embedInput = prototypeInput.getElementsByClassName('embed-type')[0].parentElement
 
-        //     tricksMedias.appendChild(input)
+            containerCollection.appendChild(choiceInput);
 
-        //     inputSelectMedia.remove()
+            choiceInput.addEventListener('change', (inputEvent) => {
+                let valueInput = inputEvent.target.value
 
-        //     let btnDeleteMedia = document.querySelectorAll('.delete_media')
+                if (valueInput == 'picture') {
+                    containerCollection.appendChild(pictureInput)
+                }
 
-        //     btnDeleteMedia.forEach(btnDelete => {
-        //         btnDelete.addEventListener('click', () => {
-        //             btnDelete.parentElement.remove()
-        //         })
-        //     });
+                if (valueInput == 'embed') {
+                    containerCollection.appendChild(embedInput)
+                }
 
-        // })
-        count++
-    })
-}
+                choiceInput.remove()
+            })
+
+            containerCollection.dataset.index++;
+    };
+
+    document.querySelectorAll('#add_item_media').forEach(btn => {
+        btn.addEventListener("click", (event) => {
+            addFormToCollection(event)
+        })
+    });
+});
+
+

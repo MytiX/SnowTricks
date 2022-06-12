@@ -24,7 +24,7 @@ class TestController extends AbstractController
     #[Route('/test', name: 'app_cgu')]
     public function index(Request $request, TricksRepository $tricksRepository, EntityManagerInterface $em, UserRepository $userRepository): Response
     {
-        $tricks = $tricksRepository->find(1);
+        $tricks = $tricksRepository->find(6);
         
         $form = $this->createForm(TricksType::class, $tricks);
 

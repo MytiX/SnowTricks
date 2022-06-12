@@ -66,17 +66,11 @@ class MediaType extends AbstractType implements DataMapperInterface
         
         /** @var FormInterface[] $forms */
 
-        // if (array_key_exists('mediaType', $forms)) {
-        //     $forms['mediaType']->setData($viewData::FORM_CHOICE_KEY);
-        // }
-
         if ($viewData instanceof Picture && array_key_exists('picture', $forms)) {
-            // dd($viewData);
             $forms['picture']->setData($viewData);
         }
 
         if ($viewData instanceof Embed && array_key_exists('embed', $forms)) {
-            // dd($viewData);
             $forms['embed']->setData($viewData);
         }
         
