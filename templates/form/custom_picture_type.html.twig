@@ -1,7 +1,8 @@
 {% block picture_widget %}
     {% for child in form.children|filter(child => not child.rendered) %}
-    <div class="row picture-type">
-        {% if child.vars.value == null %}
+    
+    <div class="row align-items-center picture-type {% if child.parent.vars.file_url == null %}empty-input{% endif %}">
+        {% if child.parent.vars.file_url == null %}
             <div class="col-6 mb-3">
                 {{ form_label(child) }}
                 {{ form_widget(child, {
@@ -12,10 +13,10 @@
                 {{ form_help(child) }}
                 {{ form_errors(child) }}
             </div>
-        {% else %}            
+        {% else %}           
             <div class="col-3 picture-content">
-                {{ child.vars.value | raw }}
-            </div>        
+                <img src="{{ asset('uploads/' ~ child.parent.vars.file_url) }}" alt="">
+            </div>   
         {% endif %}
         <div class="col">
             <button type="button" class="btn btn-danger delete_media"><i class="bi bi-trash"></i></button>  

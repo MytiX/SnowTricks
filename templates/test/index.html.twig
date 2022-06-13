@@ -4,22 +4,12 @@
 
 {% block body %}
 
-    {# {{ form_start(form) }}
-        {{ form_row(form.description) }}
-
-        <h3>Tags</h3>
-        <ul class="tags">
-            {% for tag in form.tags %}
-                <li>{{ form_row(tag.name) }}</li>
-            {% endfor %}
-        </ul>
-    {{ form_end(form) }} #}
-
     {{ form_start(form) }}
         {{ form_row(form.name, { 'label': 'Nom de la figure' }) }}
         {{ form_row(form.description, { 'label': 'Description' }) }}
         {{ form_row(form.group_stunt, { 'label': 'Type de tricks' }) }}
         <div id="container-medias" data-index="{{form.medias|length > 0 ? form.medias|last.vars.name + 1 : 0}}" data-prototype="{{ form_widget(form.medias.vars.prototype)|e('html_attr') }}">
+            <label class="mb-3">Médias</label>
             {% for media in form.medias %}
                 {{ form_row(media) }}
             {% endfor %}

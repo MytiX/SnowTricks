@@ -25,8 +25,15 @@ class PictureType extends AbstractType
 
     public function buildView(FormView $view, FormInterface $form, array $options): void
     {
-        // $view->vars['file_url'] = $form->getData()->getName();
-        // @todo complet this part with the name
+        /** @var Picture */
+        $entity = $form->getData();
+
+        if (null == $entity) {
+            $view->vars['file_url'] = null;
+            return;
+        }
+
+        $view->vars['file_url'] = ($entity->getName() != null) ? $entity->getName() : null;
     }
 
     public function configureOptions(OptionsResolver $resolver): void

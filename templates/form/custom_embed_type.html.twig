@@ -1,6 +1,6 @@
 {% block embed_widget %}
     {% for child in form.children|filter(child => not child.rendered) %}
-    <div class="row align-items-center embed-type">
+    <div class="row align-items-center embed-type {% if child.vars.value == null %}empty-input{% endif %}">
         {% if child.vars.value == null %}
             <div class="col-6 mb-3">
                 {{ form_label(child) }}

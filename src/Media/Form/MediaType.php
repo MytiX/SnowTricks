@@ -39,8 +39,6 @@ class MediaType extends AbstractType implements DataMapperInterface
             ])
             ->setDataMapper($this)
         ;
-
-        
     }
 
     public function configureOptions(OptionsResolver $resolver): void
@@ -48,11 +46,10 @@ class MediaType extends AbstractType implements DataMapperInterface
         $resolver->setDefaults([]);
     }
 
-
     /**
      * Edit form
      */
-    public function mapDataToForms($viewData, Traversable $forms)
+    public function mapDataToForms($viewData, \Traversable $forms)
     {
         if (null === $viewData) {
             return;
@@ -63,18 +60,14 @@ class MediaType extends AbstractType implements DataMapperInterface
         }
 
         $forms = iterator_to_array($forms);
-        
-        /** @var FormInterface[] $forms */
 
         if ($viewData instanceof Picture && array_key_exists('picture', $forms)) {
             $forms['picture']->setData($viewData);
         }
-
+        
         if ($viewData instanceof Embed && array_key_exists('embed', $forms)) {
             $forms['embed']->setData($viewData);
         }
-        
-        dump($viewData, 'mapDataToForm');
     }
     
     /**

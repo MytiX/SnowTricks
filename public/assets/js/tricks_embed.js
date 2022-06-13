@@ -1,10 +1,16 @@
 window.addEventListener("DOMContentLoaded", (event) => {
+
     const removeChoiceType = () => {
         document.querySelectorAll('.choice-type').forEach(choiceType => {
             choiceType.parentElement.remove()
         })
     }
-    removeChoiceType()
+
+    let allEmptyInput = document.querySelectorAll('.empty-input')
+
+    allEmptyInput.forEach(emptyInput => {
+        emptyInput.parentElement.remove()
+    })
     
     var stringToHTML = function (str, count) {
         str = str.replace(/__name__/g, count)
@@ -44,8 +50,8 @@ window.addEventListener("DOMContentLoaded", (event) => {
                 if (valueInput == 'embed') {
                     containerCollection.appendChild(embedInput)
                 }
-
                 choiceInput.remove()
+                getAllBtnDelete()
             })
 
             containerCollection.dataset.index++;
@@ -56,6 +62,38 @@ window.addEventListener("DOMContentLoaded", (event) => {
             addFormToCollection(event)
         })
     });
+
+    // @todo Faire la partie suppression média
+    // Delete medias
+    const getAllBtnDelete = function () {
+        let allBtnDelete = document.querySelectorAll('.delete_media')
+    
+        allBtnDelete.forEach(btnDelete => {
+            btnDelete.addEventListener('click', (event) => {
+                event.preventDefault()
+                if (confirm("Voulez-vous supprimer le média ?")) {
+                    fetch(btnDelete.getAttribute("href"), {
+                        method: "DELETE",
+                        headers: {
+                            'X-Requested-With': "XMLHttpRequest",
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({'_token': btnDelete.getAttribute('data-token')})
+                    }).then(
+                        response => response.json()
+                    ).then(data => {
+                        if (data.success)
+                            btnDelete.parentElement.parentElement.parentElement.remove()
+                        else
+                            alert(data.error)
+                    }).catch(e => alert(e))
+                }
+            })
+        })
+    }
+
+    removeChoiceType()
+    getAllBtnDelete()
 });
 
 

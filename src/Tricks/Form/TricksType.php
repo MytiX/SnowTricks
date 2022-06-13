@@ -24,8 +24,8 @@ class TricksType extends AbstractType
                 'required' => false
             ])
             ->add('group_stunt', ChoiceType::class, [
+                'placeholder' => 'Catégorie',
                 'choices' => [
-                    '' => null,
                     'Grabs' => 'Grabs',
                     'Rotations' => 'Rotations',
                     'Flips' => 'Flips',
@@ -39,9 +39,7 @@ class TricksType extends AbstractType
                 'entry_type' => MediaType::class,
                 'entry_options' => ['label' => false],
                 'allow_add' => true,
-                'allow_delete' => true,
-                // 'prototype' => true,
-                'required' => false,
+                'allow_delete' => true
             ])
             ->add('submit', SubmitType::class)
         ;
