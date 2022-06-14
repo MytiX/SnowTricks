@@ -50,8 +50,9 @@ window.addEventListener("DOMContentLoaded", (event) => {
                 if (valueInput == 'embed') {
                     containerCollection.appendChild(embedInput)
                 }
+
                 choiceInput.remove()
-                getAllBtnDelete()
+                getDeleteItem()
             })
 
             containerCollection.dataset.index++;
@@ -65,29 +66,39 @@ window.addEventListener("DOMContentLoaded", (event) => {
 
     // @todo Faire la partie suppression média
     // Delete medias
+
+    const getDeleteItem = function () {
+        let allBtnDeleteItem = document.querySelectorAll('.delete_item')
+        allBtnDeleteItem.forEach(btnDeleteItem => {
+            btnDeleteItem.addEventListener('click', (event) => {
+                event.preventDefault()
+                btnDeleteItem.parentElement.parentElement.parentElement.remove()
+            })
+        })
+    }
+    
     const getAllBtnDelete = function () {
         let allBtnDelete = document.querySelectorAll('.delete_media')
-    
         allBtnDelete.forEach(btnDelete => {
             btnDelete.addEventListener('click', (event) => {
                 event.preventDefault()
-                if (confirm("Voulez-vous supprimer le média ?")) {
-                    fetch(btnDelete.getAttribute("href"), {
-                        method: "DELETE",
-                        headers: {
-                            'X-Requested-With': "XMLHttpRequest",
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({'_token': btnDelete.getAttribute('data-token')})
-                    }).then(
-                        response => response.json()
-                    ).then(data => {
-                        if (data.success)
-                            btnDelete.parentElement.parentElement.parentElement.remove()
-                        else
-                            alert(data.error)
-                    }).catch(e => alert(e))
-                }
+                    if (confirm("Voulez-vous supprimer le média ?")) {
+                        fetch(btnDelete.getAttribute("href"), {
+                            method: "DELETE",
+                            headers: {
+                                'X-Requested-With': "XMLHttpRequest",
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({'_token': btnDelete.getAttribute('data-token')})
+                        }).then(
+                            response => response.json()
+                        ).then(data => {
+                            if (data.success)
+                                btnDelete.parentElement.parentElement.parentElement.remove()
+                            else
+                                alert(data.error)
+                        }).catch(e => alert(e))
+                    }                    
             })
         })
     }
