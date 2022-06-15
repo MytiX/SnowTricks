@@ -43,26 +43,8 @@ class EditTricksController extends AbstractController
             /** @var Tricks $tricks */
             $tricks = $form->getData();
 
-            $libraries = $form->get('libraries')->getData();
+            dd($tricks);
 
-            if (null !== $libraries) {
-
-                $header = false;
-
-                if (null === $tricks->getHeaderMedia()) {
-                    $header = true;
-                }
-
-                foreach ($libraries as $librarie) {
-                    $media = new Media($this->getParameter('app.uploads_directory'));
-                    $media->setFile($librarie);
-                    if ($header) {
-                        $media->setHeader($header);
-                        $header = false;
-                    }
-                    $tricks->addMedias($media);
-                }
-            }
 
             if (null === $tricks->getId()) {
                 $tricks->setUser($this->getUser());
@@ -79,7 +61,7 @@ class EditTricksController extends AbstractController
         }
 
         return $this->render('edit_tricks/index.html.twig', [
-            'formView' => $form->createView(),
+            'form' => $form->createView(),
             'tricks' => $tricks,
         ]);
     }

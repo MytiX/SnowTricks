@@ -15,6 +15,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints\All;
 use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -75,6 +76,23 @@ class MediaType extends AbstractType implements DataMapperInterface
      */
     public function mapFormsToData(Traversable $forms, &$viewData)
     {
-        dump($viewData, 'mapFormsToData');        
+        $forms = iterator_to_array($forms);
+
+        if (
+            array_key_exists('picture', $forms) &&
+            $forms['picture']->getData() instanceof Picture &&
+            $forms['picture']->getData()->getFile() instanceof UploadedFile
+        ) {
+            $viewData = $forms['picture']->getData();
+        }
+
+        if (
+            array_key_exists('embed', $forms) &&
+            $forms['embed']->getData() instanceof Embed
+        ) {
+            $viewData = $forms['embed']->getData();
+        }
+
+        dump($viewData, $forms);        
     }
 }

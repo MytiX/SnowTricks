@@ -11,6 +11,12 @@ window.addEventListener("DOMContentLoaded", (event) => {
     allEmptyInput.forEach(emptyInput => {
         emptyInput.parentElement.remove()
     })
+
+    let tricksEmpty = document.getElementById('tricks_medias')
+
+    if (tricksEmpty != null) {
+        tricksEmpty.parentElement.remove()
+    }
     
     var stringToHTML = function (str, count) {
         str = str.replace(/__name__/g, count)

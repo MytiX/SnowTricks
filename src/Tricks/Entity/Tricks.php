@@ -45,7 +45,7 @@ class Tricks
     #[ORM\JoinColumn(nullable: false)]
     private $user;
 
-    private $tempMedias;
+    // private $tempMedias;
 
     public function __construct()
     {
@@ -138,7 +138,7 @@ class Tricks
         return $this->medias;
     }
 
-    public function addMedias(Media $media): self
+    public function addMedia(Media $media): self
     {
         if (!$this->medias->contains($media)) {
             $this->medias[] = $media;
@@ -189,13 +189,13 @@ class Tricks
         return $this;
     }
 
-    public function setTempMedias(array $medias)
-    {
-        $this->tempMedias = $medias;
-    }
+    // public function setTempMedias(array $medias)
+    // {
+    //     $this->tempMedias = $medias;
+    // }
 
-    public function getTempMedias(): array
-    {
-        return $this->tempMedias;
-    }
+    // public function getTempMedias(): array
+    // {
+    //     return $this->tempMedias;
+    // }
 }
