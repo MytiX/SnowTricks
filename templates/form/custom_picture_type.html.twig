@@ -15,18 +15,34 @@
             </div>
         {% else %}           
             <div class="col-3 picture-content">
-                <img src="{{ asset('uploads/' ~ child.parent.vars.file_url) }}" alt="">
+                <img src="{{ asset(child.parent.vars.file_url) }}" alt="">
             </div>   
         {% endif %}
         <div class="col">
             <a 
-            href="{% if child.parent.vars.data != null %}{{ path('app_delete_media', {id: child.parent.vars.data.id}) }}{% endif %}" 
+            href="{% if child.parent.vars.data.id is defined and child.parent.vars.data.id != null %}{{ path('app_delete_media', {id: child.parent.vars.data.id}) }}{% endif %}" 
             class="btn btn-danger {% if child.parent.vars.data != null %}delete_media{% else %}delete_item{% endif %}"
             {% if child.parent.vars.data != null %}
                 data-token="{{ csrf_token('delete' ~ child.parent.vars.data.id) }}"
             {% endif %}>
                 <i class="bi bi-trash"></i>
             </a>
+        </div>
+
+        <div class="col">
+            <div class="form-check">
+                <input class="form-check-input" 
+                    type="checkbox" 
+                    value="1" 
+                    data-header="{% if child.parent.vars.data.id is defined and child.parent.vars.data.id != null %}{{child.parent.vars.data.id}}{% endif %}" 
+                    id="{{ child.parent.vars.full_name }}[header]" 
+                    {% if child.parent.vars.data.header is defined and child.parent.vars.data.header == true %}checked{% endif %}
+                    {% if child.parent.vars.data != null %}
+                        data-token="{{ csrf_token('header' ~ child.parent.vars.data.id) }}"
+                    {% endif %}
+                >
+                <label class="form-check-label" for="{{ child.parent.vars.full_name }}[header]">Mise en avant</label>
+            </div>
         </div>
     </div>
     {% endfor %}

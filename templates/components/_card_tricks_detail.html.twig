@@ -1,7 +1,14 @@
 <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 py-2">
-    <div class="bg-light card-tricks">
-        <div class="img-tricks">
-            <img class="img-fluid" src="{{ asset('uploads/' ~ media.name) }}" alt="">
+    <div class="card-tricks">
+    {% if media|instanceOf('App\\Media\\Entity\\Embed') %}
+        <div class="embed-tricks">
+            {{ media.embedContent|raw }}
         </div>
+    {% endif %}
+    {% if media|instanceOf('App\\Media\\Entity\\Picture') %}
+        <div class="img-tricks">
+            <img class="img-fluid" src="{{ asset(media.filePath) }}" alt="">
+        </div>
+    {% endif %}
     </div>
 </div>

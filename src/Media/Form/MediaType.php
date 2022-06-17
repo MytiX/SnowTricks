@@ -32,11 +32,13 @@ class MediaType extends AbstractType implements DataMapperInterface
             ->add('medias_choice', MediasChoiceType::class, [
                 'label' => false,
             ])
-            ->add('embed', EmbedType::class, [
-                'label' => false
-            ])
             ->add('picture', PictureType::class, [
-                'label' => false
+                'label' => false,
+                'required' => false
+            ])
+            ->add('embed', EmbedType::class, [
+                'label' => false,
+                'required' => false
             ])
             ->setDataMapper($this)
         ;
@@ -85,14 +87,12 @@ class MediaType extends AbstractType implements DataMapperInterface
         ) {
             $viewData = $forms['picture']->getData();
         }
-
+        
         if (
             array_key_exists('embed', $forms) &&
             $forms['embed']->getData() instanceof Embed
         ) {
             $viewData = $forms['embed']->getData();
-        }
-
-        dump($viewData, $forms);        
+        }       
     }
 }

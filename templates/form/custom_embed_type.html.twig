@@ -15,10 +15,13 @@
         {% else %}            
             <div class="col-3 embed-content">
                 {{ child.vars.value | raw }}
+                <input type="hidden" name="{{ child.vars.full_name }}" value="{{child.vars.value}}"> 
             </div>        
         {% endif %}
         <div class="col">
-            <a href="{% if child.parent.vars.data != null %}{{ path('app_delete_media', {id: child.parent.vars.data.id}) }}{% endif %}" class="btn btn-danger {% if child.parent.vars.data != null %}delete_media{% else %}delete_item{% endif %}"><i class="bi bi-trash"></i></a> 
+            <a href="{% if child.parent.vars.data != null %}{{ path('app_delete_media', {id: child.parent.vars.data.id}) }}{% endif %}" class="btn btn-danger {% if child.parent.vars.data != null %}delete_media{% else %}delete_item{% endif %}" {% if child.parent.vars.data != null %}
+                data-token="{{ csrf_token('delete' ~ child.parent.vars.data.id) }}"
+            {% endif %}><i class="bi bi-trash"></i></a> 
         </div>
     </div>
     {% endfor %}

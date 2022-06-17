@@ -3,6 +3,7 @@
 namespace App\Tricks\Controller;
 
 use App\Media\Entity\Media;
+use App\Media\Entity\Picture;
 use App\Media\Repository\MediaRepository;
 use App\Tricks\Entity\Tricks;
 use App\Tricks\Form\TricksType;
@@ -35,7 +36,7 @@ class EditTricksController extends AbstractController
         }
 
         $form = $this->createForm(TricksType::class, $tricks);
-
+        
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -43,16 +44,21 @@ class EditTricksController extends AbstractController
             /** @var Tricks $tricks */
             $tricks = $form->getData();
 
-            dd($tricks);
-
-
             if (null === $tricks->getId()) {
                 $tricks->setUser($this->getUser());
                 $em->persist($tricks);
+            } else {
+                foreach ($tricks->getMedias() as $media) {
+                    /** @var Media $media */
+                    if (null == $media->getTricks()) {
+                        $media->setTricks($tricks);
+                        $em->persist($media);
+                    }
+                }
             }
-
+            
             $em->flush();
-
+            
             if ($request->attributes->get('_route')) {
                 return $this->redirectToRoute('app_edit_tricks', [
                     'id' => $tricks->getId(),

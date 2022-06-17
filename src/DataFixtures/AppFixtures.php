@@ -30,15 +30,15 @@ class AppFixtures extends Fixture
 
         $embed->setEmbedContent('Embed 1');
 
-        $picture->setFilePath('/var/www/public/uploads/bc9b7209720dc85167cee77f9bff18a6.jpg');
+        $picture->setFilePath('uploads/bc9b7209720dc85167cee77f9bff18a6.jpg');
 
         $tricks
             ->setName('Je suis un tricks')
             ->setDescription('Je suis une description')
             ->setUser($user)
             ->setGroupStunt('Rotations')
-            ->addMedias($embed)
-            ->addMedias($picture);
+            ->addMedia($embed)
+            ->addMedia($picture);
 
         $manager->persist($user);
         $manager->persist($tricks);

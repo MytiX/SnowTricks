@@ -144,6 +144,12 @@ a {
     padding: 5px;
 }
 
+.img-tricks img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16/9;
+}
+
 .manage-tricks {
     display: flex;
     padding: 10px;
@@ -319,7 +325,7 @@ a {
     display: none !important;
 }
 
-.embed-content iframe
+.embed-content iframe, .embed-tricks iframe
 {
     width: 100%;
     height: auto;

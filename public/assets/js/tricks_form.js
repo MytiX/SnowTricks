@@ -51,12 +51,18 @@ window.addEventListener("DOMContentLoaded", (event) => {
 
                 if (valueInput == 'picture') {
                     containerCollection.appendChild(pictureInput)
+                    embedInput.classList.add('d-none')
+                    containerCollection.appendChild(embedInput)
                 }
 
                 if (valueInput == 'embed') {
                     containerCollection.appendChild(embedInput)
+                    pictureInput.classList.add('d-none')
+                    containerCollection.appendChild(pictureInput)
                 }
 
+                containerCollection.appendChild(embedInput)
+                containerCollection.appendChild(pictureInput)
                 choiceInput.remove()
                 getDeleteItem()
             })
@@ -69,9 +75,6 @@ window.addEventListener("DOMContentLoaded", (event) => {
             addFormToCollection(event)
         })
     });
-
-    // @todo Faire la partie suppression média
-    // Delete medias
 
     const getDeleteItem = function () {
         let allBtnDeleteItem = document.querySelectorAll('.delete_item')

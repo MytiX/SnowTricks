@@ -3,9 +3,11 @@ namespace App\Media\Entity;
 
 use App\Media\Entity\Media;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 #[ORM\Entity()]
+#[HasLifecycleCallbacks]
 class Picture extends Media
 {
     #[ORM\Column(type: 'string', length: 255)]
@@ -15,9 +17,6 @@ class Picture extends Media
     private $header = false;
 
     private ?UploadedFile $file = null;
-
-    public function __construct(private ?string $upload_directory = null)
-    {}
 
     public function getFilePath(): ?string
     {
@@ -74,5 +73,10 @@ class Picture extends Media
     public function getName()
     {
         return basename($this->getFilePath());
+    }
+
+    public function emptyPicture(): string
+    {
+        return 'assets/img/empty.png';
     }
 }

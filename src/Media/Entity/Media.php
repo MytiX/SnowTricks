@@ -30,6 +30,8 @@ abstract class Media
     #[ORM\JoinColumn(nullable: false)]
     private $tricks;
 
+    protected $upload_directory = 'uploads';
+
     public function getId(): ?int
     {
         return $this->id;
