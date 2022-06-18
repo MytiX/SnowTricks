@@ -19,7 +19,6 @@ class MediaController extends AbstractController
         $data = json_decode($request->getContent(), true);
         
         if (null === $data || empty($token = $data['_token'])) {
-            dd($data);
             return new JsonResponse('Bad request', 400);
         }
         
