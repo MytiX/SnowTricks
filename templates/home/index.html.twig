@@ -11,12 +11,14 @@
         </div>
     </div>
     <div id="trick-container" class="row">
-    {% for card in 1..15 %}
-        {% include "components/_card.html.twig" %}
-    {% endfor %}
+        {% include "components/_card.html.twig" with {tricks: tricks} only %}
     </div>
     <div class="row py-4">
-        {% include "components/_loader.html.twig" %}
+        {% include "components/_loader.html.twig" with {page: page} %}
     </div>
 
+{% endblock %}
+
+{% block script %}
+    <script src="{{ asset('assets/js/home_pagination.js') }}"></script>
 {% endblock %}

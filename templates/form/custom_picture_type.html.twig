@@ -1,0 +1,49 @@
+{% block picture_widget %}
+    {% for child in form.children|filter(child => not child.rendered) %}
+    
+    <div class="row align-items-center picture-type {% if child.parent.vars.file_url == null %}empty-input{% endif %}">
+        {% if child.parent.vars.file_url == null %}
+            <div class="col-6 mb-3">
+                {{ form_label(child) }}
+                {{ form_widget(child, {
+                    attr: {
+                        class: 'pe-5'
+                    }
+                }) }}              
+                {{ form_help(child) }}
+                {{ form_errors(child) }}
+            </div>
+        {% else %}           
+            <div class="col-3 picture-content">
+                <img src="{{ asset(child.parent.vars.file_url) }}" alt="">
+            </div>   
+        {% endif %}
+        <div class="col">
+            <a 
+            href="{% if child.parent.vars.data.id is defined and child.parent.vars.data.id != null %}{{ path('app_delete_media', {id: child.parent.vars.data.id}) }}{% endif %}" 
+            class="btn btn-danger {% if child.parent.vars.data != null %}delete_media{% else %}delete_item{% endif %}"
+            {% if child.parent.vars.data != null %}
+                data-token="{{ csrf_token('delete' ~ child.parent.vars.data.id) }}"
+            {% endif %}>
+                <i class="bi bi-trash"></i>
+            </a>
+        </div>
+
+        <div class="col">
+            <div class="form-check">
+                <input class="form-check-input input-picture-header" 
+                    type="checkbox" 
+                    value="1" 
+                    id="{{ child.parent.vars.full_name }}[header]" 
+                    name="{{ child.parent.vars.full_name }}[header] }}"
+                    {% if child.parent.vars.data.header is defined and child.parent.vars.data.header == true %}checked{% endif %}
+                    {% if child.parent.vars.data != null %}
+                        data-token="{{ csrf_token('header' ~ child.parent.vars.data.id) }}"
+                    {% endif %}
+                >
+                <label class="form-check-label label-picture-header" for="{{ child.parent.vars.full_name }}[header]">Mise en avant</label>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+{% endblock %}

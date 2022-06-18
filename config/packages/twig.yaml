@@ -1,6 +1,10 @@
 twig:
     default_path: '%kernel.project_dir%/templates'
-    form_themes: ['bootstrap_5_layout.html.twig']
+    form_themes: 
+        - 'form/custom_embed_type.html.twig'
+        - 'form/custom_picture_type.html.twig'
+        - 'form/custom_medias_choice.html.twig'
+        - 'bootstrap_5_layout.html.twig'
 
 when@test:
     twig:

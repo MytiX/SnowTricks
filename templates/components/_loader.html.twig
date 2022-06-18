@@ -1,4 +1,8 @@
-<div class="col-12 d-flex justify-content-center align-items-center flex-column">
+<div id="loader" class="col-12 none">
     <div class="spinner-border text-light" role="status"></div>
     <span class="text-light">Chargement</span>
+</div>
+
+<div class="col-12 d-flex justify-content-center {% if page == false %}none{% endif %}" id="view-more">
+    <a class="btn btn-secondary" href="{{ path('app_tricks') }}" data-page="1">Afficher plus</a>
 </div>

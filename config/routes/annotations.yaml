@@ -10,6 +10,10 @@ tricksControllers:
     resource: ../../src/Tricks/Controller/
     type: annotation
 
+mediaControllers:
+    resource: ../../src/Media/Controller/
+    type: annotation
+
 kernel:
     resource: ../../src/Kernel.php
     type: annotation

@@ -1,0 +1,12 @@
+{% block medias_choice_widget %}
+    {% for child in form.children|filter(child => not child.rendered) %}
+    <div class="row choice-type">
+        <div class="col-6 mb-3">
+            {{ form_label(child) }}
+            {{ form_widget(child) }}              
+            {{ form_help(child) }}
+            {{ form_errors(child) }}
+        </div>
+    </div>
+    {% endfor %}
+{% endblock %}
