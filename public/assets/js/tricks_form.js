@@ -51,12 +51,6 @@ window.addEventListener("DOMContentLoaded", (event) => {
             })
         })
     }
-
-    document.querySelectorAll('#add_item_media').forEach(btn => {
-        btn.addEventListener("click", (event) => {
-            addFormToCollection(event)
-        })
-    });
     
     const getAllBtnDelete = function () {
         let allBtnDelete = document.querySelectorAll('.delete_media')
@@ -173,6 +167,12 @@ window.addEventListener("DOMContentLoaded", (event) => {
 
             containerCollection.dataset.index++;
     };
+
+    document.querySelectorAll('#add_item_media').forEach(btn => {
+        btn.addEventListener("click", (event) => {
+            addFormToCollection(event)
+        })
+    });
 
     checkSubmittedForm();
     getAllHeaderCheckbox();
