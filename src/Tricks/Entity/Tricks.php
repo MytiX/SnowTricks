@@ -7,6 +7,7 @@ use App\Entity\User;
 use App\Media\Entity\Media;
 use App\Media\Entity\Picture;
 use Doctrine\ORM\Mapping as ORM;
+use App\Comments\Entity\Comments;
 use Doctrine\ORM\Mapping\PreUpdate;
 use Doctrine\ORM\Mapping\PrePersist;
 use App\Tricks\Repository\TricksRepository;
@@ -45,9 +46,13 @@ class Tricks
     #[ORM\JoinColumn(nullable: false)]
     private $user;
 
+    #[ORM\OneToMany(targetEntity: Comments::class, mappedBy: "tricks", orphanRemoval: true, cascade: ["persist"])]
+    private $comments;
+
     public function __construct()
     {
         $this->medias = new ArrayCollection();
+        $this->comments = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -188,6 +193,36 @@ class Tricks
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Comments[]
+     */
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    public function addComment(Comments $comment): self
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments[] = $comment;
+            $comment->setTricks($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComment(Comments $comment): self
+    {
+        if ($this->comments->removeElement($comment)) {
+            // set the owning side to null (unless already changed)
+            if ($comment->getTricks() === $this) {
+                $comment->setTricks(null);
+            }
+        }
 
         return $this;
     }

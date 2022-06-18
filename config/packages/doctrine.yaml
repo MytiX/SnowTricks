@@ -20,11 +20,16 @@ doctrine:
                 dir: '%kernel.project_dir%/src/Tricks/Entity'
                 prefix: 'App\Tricks\Entity'
                 alias: Tricks
-            Media:
+            Medias:
                 is_bundle: false
                 dir: '%kernel.project_dir%/src/Media/Entity'
                 prefix: 'App\Media\Entity'
                 alias: Media
+            Comments:
+                is_bundle: false
+                dir: '%kernel.project_dir%/src/Comments/Entity'
+                prefix: 'App\Comments\Entity'
+                alias: Comments
 
 when@test:
     doctrine:

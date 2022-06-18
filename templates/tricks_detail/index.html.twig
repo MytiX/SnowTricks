@@ -25,19 +25,32 @@
         {% include "components/_description_tricks.html.twig" with {title: 'Catégorie', value: tricks.groupStunt} only %}
         {% include "components/_description_tricks.html.twig" with {title: 'Date de modification', value: tricks.updatedAt|date("d/m/Y")} only %}
 
-        <hr>
-            Formulaire
-        <hr>
 
         <div class="row">
             <h3>Commentaires :</h3>
-            {% for item in 1..10 %}
+            <div class="col-12">
+                {% if app.user != null %}
+                    {{ form_start(form) }}
+                        <div class="row align-items-end">
+                            <div class="col-11">
+                                {{ form_row(form.comment, { 'label': 'Votre commentaire :' }) }}                
+                            </div>
+                            <div class="col">
+                                {{ form_row(form.submit, { 'label': 'Envoyer' }) }}
+                            </div>
+                        </div>
+                    {{ form_end(form) }}
+                {% else %}
+                    <span class="text-warning">Pour poster un commentaire vous devez être connecté.</span>
+                {% endif %}
+            </div>
+            {% for comment in tricks.comments %}
                 <div class="col-12 comment">
                     <div>
-                        <span class="pseudo">Bob</span>
-                        <span class="comment-content">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatem ipsam voluptates magnam, a quibusdam similique nobis aut totam maiores eos sed officia consectetur. Dolores quas vel impedit similique quidem provident.</span>
+                        <span class="pseudo">{{comment.user.pseudo}}</span>
+                        <span class="comment-content">{{comment.comment}}</span>
                     </div>
-                    <span class="comment-date">20/05/2022</span>
+                    <span class="comment-date">{{comment.createdAt|date("d/m/Y")}}</span>
                 </div>
             {% endfor %}
         </div>

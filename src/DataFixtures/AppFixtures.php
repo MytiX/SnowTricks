@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Comments\Entity\Comments;
 use App\Entity\User;
 use App\Media\Entity\Embed;
 use App\Media\Entity\Picture;
@@ -21,6 +22,7 @@ class AppFixtures extends Fixture
         $user = new User();
         $embed = new Embed();
         $picture = new Picture();
+        
 
         $user
             ->setEmail('test@test.fr')
@@ -41,6 +43,16 @@ class AppFixtures extends Fixture
             ->setGroupStunt('Rotations')
             ->addMedia($embed)
             ->addMedia($picture);
+
+        for ($i=0; $i < 10; $i++) { 
+            $comments = new Comments();
+            $comments
+            ->setComment("Je suis un commentaire $i")
+            ->setUser($user)
+            ->setTricks($tricks);
+
+            $tricks->addComment($comments);
+        }
 
         $manager->persist($user);
         $manager->persist($tricks);
