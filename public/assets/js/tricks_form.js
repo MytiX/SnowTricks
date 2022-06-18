@@ -25,61 +25,22 @@ window.addEventListener("DOMContentLoaded", (event) => {
         return doc.body;
     };
 
-
-    const addFormToCollection = (event) => {
-        event.preventDefault()
-        containerCollection = document.getElementById('container-' + event.currentTarget.dataset.collectionHolderClass);
-
-            inputCollection = containerCollection
-                .dataset
-                .prototype
-                .replace(
-                    /__name__/g,
-                    containerCollection.dataset.index
-            );
-
-            prototypeInput = stringToHTML(inputCollection)
-
-            let choiceInput = prototypeInput.getElementsByClassName('choice-type')[0].parentElement
-            let pictureInput = prototypeInput.getElementsByClassName('picture-type')[0].parentElement
-            let embedInput = prototypeInput.getElementsByClassName('embed-type')[0].parentElement
-
-            containerCollection.appendChild(choiceInput);
-
-            choiceInput.addEventListener('change', (inputEvent) => {
-                let valueInput = inputEvent.target.value
-
-                if (valueInput == 'picture') {
-                    pictureInput.getElementsByTagName('input')[0].setAttribute('required', 'required');
-                    containerCollection.appendChild(pictureInput)
-                    embedInput.classList.add('d-none')
-                    embedInput.getElementsByTagName('input')[0].removeAttribute('required');
-                    containerCollection.appendChild(embedInput)
-                }
-
-                if (valueInput == 'embed') {
-                    embedInput.getElementsByTagName('input')[0].setAttribute('required', 'required');
-                    containerCollection.appendChild(embedInput)
-                    pictureInput.classList.add('d-none')
-                    pictureInput.getElementsByTagName('input')[0].removeAttribute('required');
-                    containerCollection.appendChild(pictureInput)
-                }
-
-                containerCollection.appendChild(embedInput);
-                containerCollection.appendChild(pictureInput);
-                choiceInput.remove();
-                getDeleteItem();
-                getAllHeaderCheckbox();
-            })
-
-            containerCollection.dataset.index++;
+    const errorEmptyPicture = function (event, parentContainer) {
+        event.preventDefault(); 
+        parentContainer.innerHTML = '<span class="text-danger">Vous devez avoir au moins une image.</span>';
     };
 
-    document.querySelectorAll('#add_item_media').forEach(btn => {
-        btn.addEventListener("click", (event) => {
-            addFormToCollection(event)
-        })
-    });
+    const errorNoHeaderPicture = function (event, parentContainer) {
+        event.preventDefault(); 
+
+        let labelCheckboxHeader = document.querySelectorAll('.label-picture-header');
+
+        labelCheckboxHeader.forEach(labelCheckbox => {
+            labelCheckbox.classList.add('text-danger');
+        }) 
+
+        parentContainer.innerHTML = '<span class="text-danger">Vous devez mettre en avant au moins une image.</span>';
+    };
 
     const getDeleteItem = function () {
         let allBtnDeleteItem = document.querySelectorAll('.delete_item')
@@ -90,6 +51,12 @@ window.addEventListener("DOMContentLoaded", (event) => {
             })
         })
     }
+
+    document.querySelectorAll('#add_item_media').forEach(btn => {
+        btn.addEventListener("click", (event) => {
+            addFormToCollection(event)
+        })
+    });
     
     const getAllBtnDelete = function () {
         let allBtnDelete = document.querySelectorAll('.delete_media')
@@ -158,21 +125,53 @@ window.addEventListener("DOMContentLoaded", (event) => {
         })
     }
 
-    const errorEmptyPicture = function (event, parentContainer) {
-        event.preventDefault(); 
-        parentContainer.innerHTML = '<span class="text-danger">Vous devez avoir au moins une image.</span>';
-    };
+    const addFormToCollection = (event) => {
+        event.preventDefault()
+        containerCollection = document.getElementById('container-' + event.currentTarget.dataset.collectionHolderClass);
 
-    const errorNoHeaderPicture = function (event, parentContainer) {
-        event.preventDefault(); 
+            inputCollection = containerCollection
+                .dataset
+                .prototype
+                .replace(
+                    /__name__/g,
+                    containerCollection.dataset.index
+            );
 
-        let labelCheckboxHeader = document.querySelectorAll('.label-picture-header');
+            prototypeInput = stringToHTML(inputCollection)
 
-        labelCheckboxHeader.forEach(labelCheckbox => {
-            labelCheckbox.classList.add('text-danger');
-        }) 
+            let choiceInput = prototypeInput.getElementsByClassName('choice-type')[0].parentElement
+            let pictureInput = prototypeInput.getElementsByClassName('picture-type')[0].parentElement
+            let embedInput = prototypeInput.getElementsByClassName('embed-type')[0].parentElement
 
-        parentContainer.innerHTML = '<span class="text-danger">Vous devez mettre en avant au moins une image.</span>';
+            containerCollection.appendChild(choiceInput);
+
+            choiceInput.addEventListener('change', (inputEvent) => {
+                let valueInput = inputEvent.target.value
+
+                if (valueInput == 'picture') {
+                    pictureInput.getElementsByTagName('input')[0].setAttribute('required', 'required');
+                    containerCollection.appendChild(pictureInput)
+                    embedInput.classList.add('d-none')
+                    embedInput.getElementsByTagName('input')[0].removeAttribute('required');
+                    containerCollection.appendChild(embedInput)
+                }
+
+                if (valueInput == 'embed') {
+                    embedInput.getElementsByTagName('input')[0].setAttribute('required', 'required');
+                    containerCollection.appendChild(embedInput)
+                    pictureInput.classList.add('d-none')
+                    pictureInput.getElementsByTagName('input')[0].removeAttribute('required');
+                    containerCollection.appendChild(pictureInput)
+                }
+
+                containerCollection.appendChild(embedInput);
+                containerCollection.appendChild(pictureInput);
+                choiceInput.remove();
+                getDeleteItem();
+                getAllHeaderCheckbox();
+            })
+
+            containerCollection.dataset.index++;
     };
 
     checkSubmittedForm();
