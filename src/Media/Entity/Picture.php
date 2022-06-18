@@ -61,22 +61,19 @@ class Picture extends Media
     #[ORM\PrePersist]
     public function upload()
     {
-        $extension = $this->file->guessExtension();
-
-        $fileName = md5(uniqid()) . '.' . $extension;
-
-        $this->setFilePath($this->upload_directory.'/'.$fileName);
-
-        $this->file->move($this->upload_directory, $fileName);
+        if (null != $this->getFile()) {
+            $extension = $this->file->guessExtension();
+    
+            $fileName = md5(uniqid()) . '.' . $extension;
+    
+            $this->setFilePath($this->upload_directory.'/'.$fileName);
+    
+            $this->file->move($this->upload_directory, $fileName);
+        }
     }
 
     public function getName()
     {
         return basename($this->getFilePath());
-    }
-
-    public function emptyPicture(): string
-    {
-        return 'assets/img/empty.png';
     }
 }

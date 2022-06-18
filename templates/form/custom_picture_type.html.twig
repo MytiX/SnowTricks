@@ -31,17 +31,17 @@
 
         <div class="col">
             <div class="form-check">
-                <input class="form-check-input" 
+                <input class="form-check-input input-picture-header" 
                     type="checkbox" 
                     value="1" 
-                    data-header="{% if child.parent.vars.data.id is defined and child.parent.vars.data.id != null %}{{child.parent.vars.data.id}}{% endif %}" 
                     id="{{ child.parent.vars.full_name }}[header]" 
+                    name="{{ child.parent.vars.full_name }}[header] }}"
                     {% if child.parent.vars.data.header is defined and child.parent.vars.data.header == true %}checked{% endif %}
                     {% if child.parent.vars.data != null %}
                         data-token="{{ csrf_token('header' ~ child.parent.vars.data.id) }}"
                     {% endif %}
                 >
-                <label class="form-check-label" for="{{ child.parent.vars.full_name }}[header]">Mise en avant</label>
+                <label class="form-check-label label-picture-header" for="{{ child.parent.vars.full_name }}[header]">Mise en avant</label>
             </div>
         </div>
     </div>

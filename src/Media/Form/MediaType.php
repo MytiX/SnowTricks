@@ -80,12 +80,17 @@ class MediaType extends AbstractType implements DataMapperInterface
     {
         $forms = iterator_to_array($forms);
 
-        if (
-            array_key_exists('picture', $forms) &&
-            $forms['picture']->getData() instanceof Picture &&
-            $forms['picture']->getData()->getFile() instanceof UploadedFile
-        ) {
+        if (array_key_exists('picture', $forms) && $forms['picture']->getData() instanceof Picture) {
+            /** @var Picture */
             $viewData = $forms['picture']->getData();
+            $extraData = $forms['picture']->getExtraData();
+
+            if (empty($extraData)) {
+                $viewData->setHeader(false);
+                return;
+            }
+
+            $viewData->setHeader(true);
         }
         
         if (

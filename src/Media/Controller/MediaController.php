@@ -29,51 +29,14 @@ class MediaController extends AbstractController
             }
 
             $this->denyAccessUnlessGranted('CAN_DELETE', $media, 'Vous ne pouvez pas accéder à cette ressource');
-
+            
+            $tricks = $media->getTricks();
+            $tricks->preUpdate();
+            
             $em->remove($media);
             $em->flush();
 
             return new JsonResponse(['success' => 1]);
-        } else {
-            return new JsonResponse(['error' => 'Token Invalid'], 400);
-        }
-    }
-
-    #[Route('/media/{media_id}', name: 'app_header_media', methods: 'PUT')]
-    public function header(int $media_id, Request $request, MediaRepository $mediaRepository, EntityManagerInterface $em)
-    {        
-        $data = json_decode($request->getContent(), true);
-
-        if (null === $data || empty($token = $data['_token'])) {
-            return new JsonResponse('Bad request', 400);
-        }
-        
-        if ($this->isCsrfTokenValid('header'.$media_id, $token)) {
-
-            if (null === ($media = $mediaRepository->find($media_id)) || null === ($tricks = $media->getTricks())) {
-                return new JsonResponse(['error' => 'Resource Not Found'], 404);
-            }
-
-            $this->denyAccessUnlessGranted('CAN_EDIT', $media, 'Vous ne pouvez pas accéder à cette ressource');
-
-            foreach ($tricks->getMedias() as $media) {
-                if (!$media instanceof Picture) {
-                    continue;
-                }
-                /** @var Picture $media */
-                if (true === $media->getHeader()) {
-                    $media->setHeader(false);
-                    $old_media = $media->getId();
-                }
-
-                if ($media->getId() === $media_id) {
-                    $media->setHeader(true);
-                }
-            }
-            
-            $em->flush();
-
-            return new JsonResponse(['success' => 1, 'old_media_id' => $old_media]);
         } else {
             return new JsonResponse(['error' => 'Token Invalid'], 400);
         }

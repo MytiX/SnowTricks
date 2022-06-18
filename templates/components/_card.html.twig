@@ -1,8 +1,13 @@
 {% for trick in tricks %}
     <div class="col-12 col-sm-6 col-md-4 col-lg-3 py-3">
         <div class="trick-content">
+        
             <div class="img-tricks">
-                <a href="{{ path('app_tricks_detail', { id: trick.id }) }}"><img class="img-fluid" src="{{ asset(trick.headerMedia.filePath) }}" alt=""></a>
+                <a href="{{ path('app_tricks_detail', { id: trick.id }) }}">
+                    <img class="img-fluid" 
+                        src="{% if trick.headerMedia.filePath is defined and trick.headerMedia.filePath != null %}{{ asset(trick.headerMedia.filePath) }}{% else %}{{ asset(trick.emptyPicture) }}{% endif %}" 
+                        alt="">
+                </a>
             </div>
             <div class="manage-tricks">
                 <h3><a href="{{ path('app_tricks_detail', {id: trick.id}) }}">{{ trick.name }}</a></h3>

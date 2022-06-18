@@ -175,6 +175,11 @@ class Tricks
         return null;
     }
 
+    public function emptyPicture(): string
+    {
+        return 'assets/img/empty.png';
+    }
+
     public function getUser(): ?User
     {
         return $this->user;

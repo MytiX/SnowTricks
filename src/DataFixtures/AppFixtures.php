@@ -8,6 +8,7 @@ use App\Media\Entity\Picture;
 use App\Tricks\Entity\Tricks;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class AppFixtures extends Fixture
@@ -28,9 +29,10 @@ class AppFixtures extends Fixture
             ->setTokenAuth(sha1('token'.$user->getEmail()))
             ->setActive(1);
 
-        $embed->setEmbedContent('Embed 1');
+        $embed->setEmbedContent('<iframe width="560" height="315" src="https://www.youtube.com/embed/oUJolR5bX6g" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>');
 
-        $picture->setFilePath('uploads/bc9b7209720dc85167cee77f9bff18a6.jpg');
+        $picture->setFilePath('uploads/e2756844ffd6832e5ec14958649e47e1.jpg')
+                ->setHeader(true);
 
         $tricks
             ->setName('Je suis un tricks')

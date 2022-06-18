@@ -48,12 +48,15 @@ class EditTricksController extends AbstractController
                 $tricks->setUser($this->getUser());
                 $em->persist($tricks);
             } else {
-                foreach ($tricks->getMedias() as $media) {
-                    /** @var Media $media */
-                    if (null == $media->getTricks()) {
-                        $media->setTricks($tricks);
-                        $em->persist($media);
+                if (null != $tricks->getMedias()) {
+                    foreach ($tricks->getMedias() as $media) {
+                        /** @var Media $media */
+                        if (null == $media->getTricks()) {
+                            $media->setTricks($tricks);
+                            $em->persist($media);
+                        }
                     }
+                    $tricks->preUpdate();
                 }
             }
             
