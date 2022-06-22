@@ -220,11 +220,11 @@ a {
 }
 
 .comment span {
-    display: inline-block;
+    display: block;
 }
 
 .comment-date {
-    padding-top: 15px;
+    margin-left: auto;
 }
 
 .pseudo {
@@ -412,7 +412,7 @@ a {
 
     .comment {
         display: flex;
-        align-items: center;
+        align-items: end;
     }
     #main-container {
         margin-top: 64px;

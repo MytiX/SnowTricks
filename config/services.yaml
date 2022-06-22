@@ -7,7 +7,7 @@ parameters:
 
     app.mailer.contact: '%env(CONTACT_MAIL_SNOWTRICKS)%'
     app.upload_directory: '%kernel.project_dir%/public/uploads'
-    app.home.number.item: 2
+    app.home.number.item: 4
 
 services:
     # default configuration for services in *this* file
