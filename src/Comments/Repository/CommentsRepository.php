@@ -16,7 +16,7 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
  */
 class CommentsRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    public function __construct(ManagerRegistry $registry, private int $limitComments)
     {
         parent::__construct($registry, Comments::class);
     }
@@ -39,28 +39,13 @@ class CommentsRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return Comments[] Returns an array of Comments objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('c')
-//            ->andWhere('c.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('c.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
-
-//    public function findOneBySomeField($value): ?Comments
-//    {
-//        return $this->createQueryBuilder('c')
-//            ->andWhere('c.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    public function findByPagination(int $page)
+    {   
+        return $this->createQueryBuilder('c')
+            ->setFirstResult($page * $this->limitComments)
+            ->setMaxResults($this->limitComments + 1)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 }

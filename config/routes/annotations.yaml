@@ -18,6 +18,10 @@ cguControllers:
     resource: ../../src/CGU/Controller/
     type: annotation
 
+commentsControllers:
+    resource: ../../src/Comments/Controller/
+    type: annotation
+
 kernel:
     resource: ../../src/Kernel.php
     type: annotation

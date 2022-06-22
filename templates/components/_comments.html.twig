@@ -1,0 +1,9 @@
+{% for comment in comments %}
+	<div class="col-12 comment">
+		<div>
+			<span class="pseudo">{{comment.user.pseudo}}</span>
+			<span class="comment-content">{{comment.comment}}</span>
+		</div>
+		<span class="comment-date">{{comment.createdAt|date("d/m/Y")}}</span>
+	</div>
+{% endfor %}
