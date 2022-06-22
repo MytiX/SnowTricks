@@ -2,7 +2,11 @@
 	<div class="col-12 comment">
 		<div>
 			<span class="pseudo">{{comment.user.pseudo}}</span>
-			<span class="comment-content">{{comment.comment}}</span>
+            {% if comment.status == 1 %}
+			    <span class="comment-content">{{comment.comment}}</span>
+            {% else %}
+                <span class="comment-content"> Le commentaire à été désactivé.</span>
+            {% endif %}
 		</div>
 		<span class="comment-date">{{comment.createdAt|date("d/m/Y")}}</span>
 	</div>
