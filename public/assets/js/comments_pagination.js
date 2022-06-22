@@ -2,6 +2,7 @@ window.onload = () => {
     let view_more = document.getElementById("view-more")
     let loader = document.getElementById('loader')
     let comments_container = document.getElementById('comments-container')
+    let tricks_id = comments_container.getAttribute('data-tricks')
     
     view_more.addEventListener('click', (e) => {
         e.preventDefault()
@@ -9,7 +10,9 @@ window.onload = () => {
         let linkElement = view_more.firstElementChild
     
         page = linkElement.getAttribute('data-page')
-        link = linkElement.getAttribute("href") + '?page=' + page
+        link = linkElement.getAttribute("href") + '?page=' + page + '&tricks_id=' + tricks_id
+        
+        console.log(link);
     
         loader.classList.toggle('none')
         view_more.classList.toggle('none')

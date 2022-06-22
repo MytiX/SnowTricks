@@ -43,7 +43,7 @@
                     <span class="text-warning">Pour poster un commentaire vous devez être connecté.</span>
                 {% endif %}
             </div>
-            <div id="comments-container">
+            <div id="comments-container" data-tricks="{{tricks.id}}">
                 {% include "components/_comments.html.twig" with {comments: comments} only %}
             </div>
         </div>
@@ -56,4 +56,8 @@
     </div>
 
 
+{% endblock %}
+
+{% block script %}
+    <script src="{{ asset('assets/js/comments_pagination.js') }}"></script>
 {% endblock %}

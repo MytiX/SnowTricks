@@ -11,12 +11,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 #[Route('/api')]
 class CommentsPaginationController extends AbstractController 
 {
-    #[Route('/comments', 'app_comments', methods: ['GET'])]
+    #[Route('/comments', name: 'app_comments', methods: ['GET'])]
     public function __invoke(Request $request, CommentsRepository $commentsRepository)
     {
         $page = (int) $request->query->get('page');
+        $tricks_id = (int) $request->query->get('tricks_id');
 
-        $comments = $commentsRepository->findByPagination($page);
+        $comments = $commentsRepository->findByPagination($page, $tricks_id);
 
         $response = [];
         

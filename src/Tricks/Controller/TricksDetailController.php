@@ -35,7 +35,7 @@ class TricksDetailController extends AbstractController
         }
 
         // Pagination
-        $comments = $commentsRepository->findByPagination(0);
+        $comments = $commentsRepository->findByPagination(0, $tricks->getId());
 
         $page = false;
 

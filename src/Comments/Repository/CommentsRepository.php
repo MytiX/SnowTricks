@@ -39,11 +39,14 @@ class CommentsRepository extends ServiceEntityRepository
         }
     }
 
-    public function findByPagination(int $page)
+    public function findByPagination(int $page, int $tricks_id)
     {   
         return $this->createQueryBuilder('c')
+            ->where("c.tricks = :tricks_id")
+            ->setParameter('tricks_id', $tricks_id)
             ->setFirstResult($page * $this->limitComments)
             ->setMaxResults($this->limitComments + 1)
+            ->orderBy('c.createdAt', 'DESC')
             ->getQuery()
             ->getResult()
         ;
