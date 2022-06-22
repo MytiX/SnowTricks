@@ -30,6 +30,7 @@ class TricksDetailController extends AbstractController
             $comments->setUser($this->getUser());
             $tricks->addComment($comments);
             $em->flush();
+            return $this->redirectToRoute('app_tricks_detail', ['id' => $id]);
         }
 
         return $this->render('tricks_detail/index.html.twig', [
