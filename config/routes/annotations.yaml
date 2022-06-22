@@ -14,6 +14,10 @@ mediaControllers:
     resource: ../../src/Media/Controller/
     type: annotation
 
+cguControllers:
+    resource: ../../src/CGU/Controller/
+    type: annotation
+
 kernel:
     resource: ../../src/Kernel.php
     type: annotation

@@ -38,6 +38,10 @@ a {
     color: var(--police-color);
 }
 
+.color-white {
+    color: var(--white);
+}
+
 /* a:hover {
     color: inherit;
 } */
