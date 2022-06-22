@@ -1,3 +1,7 @@
-<h2>Snowtricks</h2>
-<p>Vous venez de créer un compte chez Snowtricks, afin de vous connecter vous allez devoir valider le compte en cliquant sur le lien ci-dessous</p>
-<a href="{{ url('app_auth_account', {email: user.email, tokenAuth: user.tokenAuth}) }}">Valider mon compte</a>
+{% extends "email/base/base.email.html.twig" %}
+
+{% block content %}
+    <p>Vous venez de créer un compte chez Snowtricks, afin de vous connecter vous allez devoir valider le compte en cliquant sur le lien ci-dessous.</p>
+    <a class="btn-action" href="{{ url('app_auth_account', {email: user.email, tokenAuth: user.tokenAuth}) }}">Valider mon compte</a>
+{% endblock %}
+

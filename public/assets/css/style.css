@@ -10,10 +10,6 @@
     --lightblue-color: rgba(40, 65, 80, 1);
 }
 
-/* html {
-    height: 100%;
-} */
-
 body {
     min-height: 100vh;
     display: flex;

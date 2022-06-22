@@ -1,0 +1,45 @@
+:root {
+    --grey-border: rgba(0, 0, 0, 0.4);
+    --police-color: #333333;
+    --white: white;
+    --font-content: 'Ubuntu', sans-serif;
+    --font-title: 'Major Mono Display', monospace;
+    --blue-color: rgba(7, 39, 58, 1);
+    --lightblue-color: rgba(40, 65, 80, 1);
+}
+
+.logo {
+    font-family: var(--font-title);
+}
+
+.main-container {
+    background-color: var(--white);
+    color: var(--police-color);
+    font-family: var(--font-content);
+}
+
+.header, .footer {            
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;           
+    background-color: var(--blue-color);
+    color: var(--white);
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+}
+
+.btn-action {
+    display: inline-block;
+    background-color: var(--lightblue-color);
+    padding: 1rem;
+    margin: 1rem 0;
+    border-radius: 50px;
+    color: var(--white);
+    text-decoration: none;
+}
