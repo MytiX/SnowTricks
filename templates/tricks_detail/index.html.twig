@@ -25,36 +25,39 @@
         {% include "components/_description_tricks.html.twig" with {title: 'Catégorie', value: tricks.groupStunt} only %}
         {% include "components/_description_tricks.html.twig" with {title: 'Date de modification', value: tricks.updatedAt|date("d/m/Y")} only %}
 
-
         <div class="row">
             <h3>Commentaires :</h3>
             <div class="col-12">
                 {% if app.user != null %}
                     {{ form_start(form) }}
-                        <div class="row align-items-end">
-                            <div class="col-11">
-                                {{ form_row(form.comment, { 'label': 'Votre commentaire :' }) }}                
-                            </div>
-                            <div class="col">
-                                {{ form_row(form.submit, { 'label': 'Envoyer' }) }}
-                            </div>
+                    <div class="row align-items-end">
+                        <div class="col-11">
+                            {{ form_row(form.comment, { 'label': 'Votre commentaire :' }) }}
                         </div>
+                        <div class="col">
+                            {{ form_row(form.submit, { 'label': 'Envoyer' }) }}
+                        </div>
+                    </div>
                     {{ form_end(form) }}
                 {% else %}
                     <span class="text-warning">Pour poster un commentaire vous devez être connecté.</span>
                 {% endif %}
             </div>
-            {% for comment in tricks.comments %}
-                <div class="col-12 comment">
-                    <div>
-                        <span class="pseudo">{{comment.user.pseudo}}</span>
-                        <span class="comment-content">{{comment.comment}}</span>
-                    </div>
-                    <span class="comment-date">{{comment.createdAt|date("d/m/Y")}}</span>
-                </div>
-            {% endfor %}
+            <div id="comments-container" data-tricks="{{tricks.id}}">
+                {% include "components/_comments.html.twig" with {comments: comments} only %}
+            </div>
+        </div>
+
+        
+        
+        <div class="row py-4">
+            {% include "components/_loader.html.twig" with {page: page, route:'app_comments'} %}
         </div>
     </div>
 
 
+{% endblock %}
+
+{% block script %}
+    <script src="{{ asset('assets/js/comments_pagination.js') }}"></script>
 {% endblock %}

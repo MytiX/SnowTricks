@@ -7,7 +7,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class CGUDetailController extends AbstractController
 {
-    #[Route('/cgu', 'app_cgu')]
+    #[Route('/cgu', name: 'app_cgu')]
     public function __invoke()
     {
         return $this->render('cgu/index.html.twig');

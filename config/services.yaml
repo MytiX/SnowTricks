@@ -8,6 +8,7 @@ parameters:
     app.mailer.contact: '%env(CONTACT_MAIL_SNOWTRICKS)%'
     app.upload_directory: '%kernel.project_dir%/public/uploads'
     app.home.number.item: 4
+    app.tricks.comments.number.item: 10
 
 services:
     # default configuration for services in *this* file
@@ -58,3 +59,7 @@ services:
     App\Tricks\Repository\TricksRepository:
         arguments:
           $limitPerPage: '%app.home.number.item%'
+
+    App\Comments\Repository\CommentsRepository:
+        arguments:
+          $limitComments: '%app.tricks.comments.number.item%'
