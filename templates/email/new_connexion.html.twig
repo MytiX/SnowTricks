@@ -1,1 +1,7 @@
-<h2>Nouvelle Connexion</h2>
+{% extends "email/base/base.email.html.twig" %}
+
+{% block content %}
+    <h3>Nouvelle connexion detectée</h3>
+    <p>Si cette activité est inhabituelle, veuillez contacter immédiatement par email le service Snowtricks</p>
+    <a href="mailto:contact@snowtricks.fr" class="btn-action">Service Snowtricks</a>
+{% endblock %}
