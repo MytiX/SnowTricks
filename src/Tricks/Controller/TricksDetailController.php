@@ -13,10 +13,12 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class TricksDetailController extends AbstractController
 {
-    #[Route('/tricks/detail/{id}', name: 'app_tricks_detail')]
-    public function __invoke(int $id, TricksRepository $tricksRepository, CommentsRepository $commentsRepository, Request $request, EntityManagerInterface $em): Response
+    #[Route('/tricks/detail/{slug}', name: 'app_tricks_detail')]
+    public function __invoke(string $slug, TricksRepository $tricksRepository, CommentsRepository $commentsRepository, Request $request, EntityManagerInterface $em): Response
     {
-        $tricks = $tricksRepository->find($id);
+        $tricks = $tricksRepository->findOneBy([
+            'slug' => $slug
+        ]);
 
         if (null === $tricks) {
             return $this->redirectToRoute('app_home');
@@ -31,10 +33,9 @@ class TricksDetailController extends AbstractController
             $comments->setUser($this->getUser());
             $tricks->addComment($comments);
             $em->flush();
-            return $this->redirectToRoute('app_tricks_detail', ['id' => $id]);
+            return $this->redirectToRoute('app_tricks_detail', ['slug' => $slug]);
         }
 
-        // Pagination
         $comments = $commentsRepository->findByPagination(0, $tricks->getId());
 
         $page = false;

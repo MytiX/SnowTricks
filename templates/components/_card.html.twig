@@ -3,14 +3,14 @@
         <div class="trick-content">
         
             <div class="img-tricks">
-                <a href="{{ path('app_tricks_detail', { id: trick.id }) }}">
+                <a href="{{ path('app_tricks_detail', {slug: trick.slug}) }}">
                     <img class="img-fluid" 
                         src="{% if trick.headerMedia.filePath is defined and trick.headerMedia.filePath != null %}{{ asset(trick.headerMedia.filePath) }}{% else %}{{ asset(trick.emptyPicture) }}{% endif %}" 
                         alt="">
                 </a>
             </div>
             <div class="manage-tricks">
-                <h3><a href="{{ path('app_tricks_detail', {id: trick.id}) }}">{{ trick.name }}</a></h3>
+                <h3><a href="{{ path('app_tricks_detail', {slug: trick.slug}) }}">{{ trick.name }}</a></h3>
                 {% if trick.user == app.user %}
                     <a href="{{ path('app_edit_tricks', {id: trick.id}) }}" class="ms-auto"><i class="bi bi-pencil-fill"></i></a>
                     <a href="{{ path('app_delete_tricks', {id: trick.id}) }}"><i class="bi bi-trash-fill"></i></i></a>

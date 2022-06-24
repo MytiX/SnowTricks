@@ -2,7 +2,12 @@
 
 {% block body %}
 
-    <div class="row">
+    <div class="row position-relative">
+        {% for message in app.flashes('success') %}
+            <div class="col-3 alert-custom alert alert-success" role="alert">
+                {{ message }}
+            </div>
+        {% endfor %}
         <div id="introduction" class="col-12">
             <div class="header-content">
                 <h2>Snowtricks le site, où tu pourras apprendre les meilleures figures de snowboard !</h2>
