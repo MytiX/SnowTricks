@@ -46,6 +46,8 @@ class EditTricksController extends AbstractController
             /** @var Tricks $tricks */
             $tricks = $form->getData();
 
+            $tricks->setSlug($sluggerInterface->slug($tricks->getName()));
+
             if (null === $tricks->getId()) {
                 $tricks->setUser($this->getUser());
                 $em->persist($tricks);
@@ -64,7 +66,7 @@ class EditTricksController extends AbstractController
             
             $em->flush();
 
-            $requestStack->getSession()->set('success', 'Votre tricks à été crée avec succès');
+            $this->addFlash('success', 'Votre tricks à été crée avec succès');
             
             if ($request->attributes->get('_route') == 'app_edit_tricks') {
                 return $this->redirectToRoute('app_edit_tricks', [

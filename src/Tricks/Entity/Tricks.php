@@ -55,7 +55,7 @@ class Tricks
     #[ORM\OneToMany(targetEntity: Comments::class, mappedBy: "tricks", orphanRemoval: true, cascade: ["persist"])]
     private $comments;
 
-    public function __construct(private SluggerInterface $sluggerInterface)
+    public function __construct()
     {
         $this->medias = new ArrayCollection();
         $this->comments = new ArrayCollection();
@@ -141,7 +141,6 @@ class Tricks
     #[PrePersist]
     public function prePersist()
     {
-        $this->setSlug($this->sluggerInterface->slug($this->getName()));
         $this->setCreatedAt(new DateTime());
         $this->setUpdatedAt($this->getCreatedAt());
     }
@@ -149,7 +148,6 @@ class Tricks
     #[PreUpdate]
     public function preUpdate()
     {
-        $this->setSlug($this->sluggerInterface->slug($this->getName()));
         $this->setUpdatedAt(new DateTime());
     }
 
