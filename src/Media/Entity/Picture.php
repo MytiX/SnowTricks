@@ -45,7 +45,9 @@ class Picture extends Media
     #[ORM\PostRemove]
     public function preRemove()
     {
-        unlink($this->getFilePath());
+        if (file_exists($this->getFilePath())) {
+            unlink($this->getFilePath());            
+        }
     }
 
     public function setFile(UploadedFile $uploadedFile)

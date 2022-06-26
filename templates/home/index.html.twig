@@ -15,6 +15,13 @@
             <a href="#trick-container" class="arrow-down"><i class="bi bi-arrow-down"></i></a>
         </div>
     </div>
+    {% if app.user != null %}
+        <div class="row mt-4 ms-4">
+            <div class="col-2">
+                <a href="{{ path('app_add_tricks') }}" class="btn btn-primary" role="button">Ajouter un tricks</a>
+            </div>
+        </div>
+    {% endif %}
     <div id="trick-container" class="row">
         {% include "components/_card.html.twig" with {tricks: tricks} only %}
     </div>

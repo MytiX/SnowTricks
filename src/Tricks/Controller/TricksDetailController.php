@@ -28,12 +28,14 @@ class TricksDetailController extends AbstractController
 
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() AND $form->isValid()) {
-            $comments = $form->getData();
-            $comments->setUser($this->getUser());
-            $tricks->addComment($comments);
-            $em->flush();
-            return $this->redirectToRoute('app_tricks_detail', ['slug' => $slug]);
+        if ($this->getUser() != null) {            
+            if ($form->isSubmitted() AND $form->isValid()) {
+                $comments = $form->getData();
+                $comments->setUser($this->getUser());
+                $tricks->addComment($comments);
+                $em->flush();
+                return $this->redirectToRoute('app_tricks_detail', ['slug' => $slug]);
+            }
         }
 
         $comments = $commentsRepository->findByPagination(0, $tricks->getId());
