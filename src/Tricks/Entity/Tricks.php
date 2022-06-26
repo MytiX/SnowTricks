@@ -14,9 +14,12 @@ use App\Tricks\Repository\TricksRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 #[ORM\Entity(repositoryClass: TricksRepository::class)]
 #[HasLifecycleCallbacks]
+#[UniqueEntity('name')]
 class Tricks
 {
     #[ORM\Id]
@@ -26,6 +29,9 @@ class Tricks
 
     #[ORM\Column(type: 'string', length: 255)]
     private $name;
+
+    #[ORM\Column(type: 'string', length: 255)]
+    private $slug;
 
     #[ORM\Column(type: 'text')]
     private $description;
@@ -68,6 +74,18 @@ class Tricks
     public function setName(string $name): self
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
 
         return $this;
     }

@@ -11,9 +11,7 @@ window.onload = () => {
     
         page = linkElement.getAttribute('data-page')
         link = linkElement.getAttribute("href") + '?page=' + page + '&tricks_id=' + tricks_id
-        
-        console.log(link);
-    
+            
         loader.classList.toggle('none')
         view_more.classList.toggle('none')
     

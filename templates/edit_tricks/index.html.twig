@@ -14,7 +14,7 @@
         <div class="row">
             <div class="col-12 pt-4">
                 {% if tricks.id is defined %}
-                    <a href="{{ path('app_tricks_detail', {id:tricks.id}) }}" class="btn btn-secondary mb-3">Voir le tricks</a>
+                    <a href="{{ path('app_tricks_detail', {slug:tricks.slug}) }}" class="btn btn-secondary mb-3">Voir le tricks</a>
                 {% endif %}
                 {{ form_start(form) }}
                     {{ form_row(form.name, { 'label': 'Nom de la figure' }) }}

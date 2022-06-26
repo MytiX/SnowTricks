@@ -38,16 +38,12 @@ a {
     color: var(--white);
 }
 
-/* a:hover {
-    color: inherit;
-} */
-
 #nav-container {
     position: fixed;
     bottom: 0;
     background-color: var(--blue-color);
     border-top: solid 1px var(--grey-border);
-    z-index: 1000;
+    z-index: 10000;
     color: var(--white);
 }
 
@@ -335,6 +331,14 @@ a {
 .picture-content img
 {
     width: 100%;
+}
+
+.alert-custom {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    display: inline-block;
+    z-index: 1000;
 }
 
 @media (min-width: 576px) { 
