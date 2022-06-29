@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 #[ORM\Entity()]
 #[HasLifecycleCallbacks]
-class ProfilPicture extends Media
+class ProfilePicture extends Media
 {
     #[ORM\Column(type: 'string', length: 255)]
     private $filePath;
@@ -47,10 +47,15 @@ class ProfilPicture extends Media
         return $this->file;
     }
 
-    #[ORM\PrePersist]
+    #[ORM\PreFlush]
     public function upload()
     {
         if (null != $this->getFile()) {
+
+            if (file_exists($this->getFilePath())) {
+                unlink($this->getFilePath());            
+            }
+            
             $extension = $this->file->guessExtension();
     
             $fileName = md5(uniqid()) . '.' . $extension;
@@ -58,6 +63,8 @@ class ProfilPicture extends Media
             $this->setFilePath($this->upload_directory.'/'.$fileName);
     
             $this->file->move($this->upload_directory, $fileName);
+
+            $this->file = null;
         }
     }
 }

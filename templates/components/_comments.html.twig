@@ -1,5 +1,6 @@
 {% for comment in comments %}
 	<div class="col-12 comment">
+        {% include "components/_picture_profile.html.twig" with {user: comment.user} only %}
 		<div>
 			<span class="pseudo">{{comment.user.pseudo}}</span>
             {% if comment.status == 1 %}

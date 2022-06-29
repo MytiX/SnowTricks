@@ -114,7 +114,7 @@ a {
 }
 
 .color {
-    background-color: #333333;
+    background-color: var(--police-color);
 }
 
 #trick-container {
@@ -250,6 +250,8 @@ a {
 #sign-container {
     padding: 0 16px;
     width: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 #sign-container a {
@@ -339,6 +341,34 @@ a {
     right: 16px;
     display: inline-block;
     z-index: 1000;
+}
+
+.container-profile-picture {
+    border: 1px solid var(--police-color);
+    border-radius: 50px;
+    width: 40px;
+    height: 40px;
+    background-color: var(--lightblue-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    margin-right: 1rem;
+    align-self: center;
+    font-size: 22px;
+    overflow: hidden;
+}
+
+.profile-picture {
+    width: 90px;
+    height: 90px;
+    align-self: center;
+    overflow: hidden;
+    border-radius: 50px;
+    border: 1px solid var(--police-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 @media (min-width: 576px) { 

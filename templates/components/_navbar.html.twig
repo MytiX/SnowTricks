@@ -6,6 +6,7 @@
                 <a href="{{ path('app_home') }}">Accueil</a>
                 <a href="{{ path('app_home') }}#trick-container">Tricks</a>
                 {% if is_granted('ROLE_USER') %}
+                    <a href="{{ path('app_user_settings') }}">Profil</a>
                     <a href="{{ path('app_logout') }}">Déconnexion</a>
                 {% else %}
                     <a href="{{ path('app_signin') }}">Connexion</a>
