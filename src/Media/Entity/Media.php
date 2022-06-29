@@ -3,6 +3,7 @@
 namespace App\Media\Entity;
 
 use DateTime;
+use App\Entity\User;
 use App\Tricks\Entity\Tricks;
 use Doctrine\ORM\Mapping as ORM;
 use App\Media\Repository\MediaRepository;
@@ -11,7 +12,7 @@ use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
 #[ORM\Entity(repositoryClass: MediaRepository::class)]
 #[ORM\InheritanceType("SINGLE_TABLE")]
 #[ORM\DiscriminatorColumn(name: 'type', type: 'string')]
-#[ORM\DiscriminatorMap(["embed" => Embed::class, 'picture' => Picture::class])]
+#[ORM\DiscriminatorMap(["embed" => Embed::class, 'picture' => Picture::class, "profil-picture" => ProfilPicture::class])]
 #[HasLifecycleCallbacks]
 abstract class Media
 {
@@ -27,8 +28,12 @@ abstract class Media
     private $updated_at;
 
     #[ORM\ManyToOne(targetEntity: Tricks::class, inversedBy: 'medias')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private $tricks;
+
+    #[ORM\OneToOne(targetEntity: User::class, inversedBy: "media", cascade: ["persist", "remove"])]
+    #[ORM\JoinColumn(nullable: true)]
+    private $user;
 
     protected $upload_directory = 'uploads';
 
@@ -82,6 +87,18 @@ abstract class Media
     public function setTricks(?Tricks $tricks): self
     {
         $this->tricks = $tricks;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }
