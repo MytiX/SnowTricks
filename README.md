@@ -18,7 +18,15 @@ git clone https://github.com/MytiX/SnowTricks
 # Start Application
 Go to the folder where the project is located :
 ```
-cd {project dir}
+cd {project dir}/php/
+```
+Give execution permission on sh script :
+```
+chmod +x entrypoint.sh  install_composer.sh
+```
+Return on current directory :
+```
+cd ..
 ```
 Start all container :
 ```

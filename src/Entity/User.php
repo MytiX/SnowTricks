@@ -3,10 +3,12 @@
 namespace App\Entity;
 
 use DateTime;
+use App\Media\Entity\Media;
 use App\Tricks\Entity\Tricks;
 use Doctrine\ORM\Mapping as ORM;
 use App\Comments\Entity\Comments;
 use App\Repository\UserRepository;
+use App\Media\Entity\ProfilePicture;
 use Doctrine\ORM\Mapping\PreUpdate;
 use Doctrine\ORM\Mapping\PrePersist;
 use Doctrine\Common\Collections\Collection;
@@ -56,11 +58,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'datetime', nullable: true)]
     private $resetPasswordExpireAt;
 
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Tricks::class)]
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Tricks::class, cascade: ["remove"])]
     private $tricks;
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Comments::class, orphanRemoval: true)]
     private $comments;
+    
+    #[ORM\OneToOne(mappedBy: 'user', targetEntity: Media::class, orphanRemoval: true, cascade: ["persist", "remove"])]
+    private $profilePicture;
 
     public function __construct()
     {
@@ -310,6 +315,23 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $comment->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getProfilePicture(): ?ProfilePicture
+    {
+        return $this->profilePicture;
+    }
+
+    public function setProfilePicture(ProfilePicture $profilePicture): self
+    {
+        // set the owning side of the relation if necessary
+        if ($profilePicture->getUser() !== $this) {
+            $profilePicture->setUser($this);
+        }
+
+        $this->profilePicture = $profilePicture;
 
         return $this;
     }

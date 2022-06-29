@@ -6,6 +6,7 @@ use App\Comments\Entity\Comments;
 use App\Entity\User;
 use App\Media\Entity\Embed;
 use App\Media\Entity\Picture;
+use App\Media\Entity\ProfilePicture;
 use App\Tricks\Entity\Tricks;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -57,12 +58,15 @@ class AppFixtures extends Fixture
 
         $user = new User();
 
+        $profilePicture = (new ProfilePicture())->setFilePath('uploads/profile-picture.png');
+
         $user
             ->setEmail("test@test.fr")
             ->setPassword($this->passwordHasher->hashPassword($user, 'testtest'))
-            ->setPseudo('Test')
+            ->setPseudo('DevryX')
             ->setTokenAuth(sha1('token'.$user->getEmail()))
-            ->setActive(1);
+            ->setActive(1)
+            ->setProfilePicture($profilePicture);
         
         $manager->persist($user);            
             

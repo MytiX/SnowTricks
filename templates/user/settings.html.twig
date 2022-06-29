@@ -1,0 +1,25 @@
+{% extends "base.html.twig" %}
+{% block title %}Paramètrer votre profil{% endblock %}
+
+{% block body %}
+    <div class="row h-100">
+		<div class="col-12 d-flex flex-column justify-content-center align-items-center">
+			<h2 class="sign-title">Paramétrage</h2>
+            <div id="sign-container">
+            {% if app.user.profilePicture != null %}
+                <div class="profile-picture mb-4">
+                    <img class="img-fluid" src="{{ asset(app.user.profilePicture.filePath) }}" alt="">
+                </div>
+            {% endif %}
+
+                {{ form_start(form) }}
+                    {{ form_row(form.pseudo) }}
+                    {{ form_row(form.profilePicture) }}
+                    <div class="text-end">
+                        {{ form_row(form.submit, {label: 'Confirmer'}) }}
+					</div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

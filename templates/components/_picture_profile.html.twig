@@ -1,0 +1,8 @@
+<div class="container-profile-picture">
+    {% if user.profilePicture != null %}
+        <img class="img-fluid" src="{{ asset(user.profilePicture.filePath) }}" alt="">
+    {% else %}
+        {# Default picture #}
+        <i class="bi bi-person-fill"></i>
+    {% endif %}
+</div>
