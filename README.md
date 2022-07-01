@@ -16,18 +16,6 @@ git clone https://github.com/MytiX/SnowTricks
 ```
 
 # Start Application
-Go to the folder where the project is located :
-```
-cd {project dir}/php/
-```
-Give execution permission on sh script :
-```
-chmod +x entrypoint.sh  install_composer.sh
-```
-Return on current directory :
-```
-cd ..
-```
 Start all container :
 ```
 docker-compose up -d
@@ -38,11 +26,11 @@ docker-compose exec -u www-data www php bin/console doctrine:database:create
 ```
 Install migration :
 ```
-docker-compose exec -u www-data www php bin/console doctrine:migrations:migrate 
+docker-compose exec -u www-data www php bin/console doctrine:migrations:migrate --no-interaction
 ```
 Install fixtures :
 ```
-docker-compose exec -u www-data www php bin/console doctrine:fixtures:load
+docker-compose exec -u www-data www php bin/console doctrine:fixtures:load --no-interaction
 ```
 ## Localhost
 App :
@@ -51,9 +39,19 @@ http://localhost:8741
 ```
 phpMyAdmin :
 ```
-http://localhost:8080/index.php
+http://localhost:8761/index.php
 ```
 MailDev :
 ```
-http://localhost:8081
+http://localhost:8751
 ```
+## Login
+Email :
+```
+test@test.fr
+```
+Password :
+```
+testtest
+```
+
