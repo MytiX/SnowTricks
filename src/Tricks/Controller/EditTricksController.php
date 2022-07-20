@@ -65,13 +65,11 @@ class EditTricksController extends AbstractController
             }
             
             $em->flush();
-
-            $this->addFlash('success', 'Votre tricks à été crée avec succès');
             
             if ($request->attributes->get('_route') == 'app_edit_tricks') {
-                return $this->redirectToRoute('app_edit_tricks', [
-                    'id' => $tricks->getId(),
-                ]);
+                $this->addFlash('success', 'Votre tricks à été modifié avec succès');
+            } else {
+                $this->addFlash('success', 'Votre tricks à été crée avec succès');
             }
 
             return $this->redirectToRoute('app_home');

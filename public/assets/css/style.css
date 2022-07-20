@@ -343,6 +343,14 @@ a {
     z-index: 1000;
 }
 
+#alert-js {
+    position: fixed;
+    top: 85px;
+    right: 16px;
+    display: inline-block;
+    z-index: 1000;
+}
+
 .container-profile-picture {
     border: 1px solid var(--police-color);
     border-radius: 50px;

@@ -1,7 +1,7 @@
 {% block picture_widget %}
     {% for child in form.children|filter(child => not child.rendered) %}
     
-    <div class="row align-items-center picture-type {% if child.parent.vars.file_url == null %}empty-input{% endif %}">
+    <div class="row align-items-center picture-type {% if child.vars.data == null and child.parent.vars.file_url == null %}empty-input{% endif %}">
         {% if child.parent.vars.file_url == null %}
             <div class="col-6 mb-3">
                 {{ form_label(child) }}
@@ -21,7 +21,7 @@
         <div class="col">
             <a 
             href="{% if child.parent.vars.data.id is defined and child.parent.vars.data.id != null %}{{ path('app_delete_media', {id: child.parent.vars.data.id}) }}{% endif %}" 
-            class="btn btn-danger {% if child.parent.vars.data != null %}delete_media{% else %}delete_item{% endif %}"
+            class="btn btn-danger {% if child.parent.vars.file_url != null %}delete_media{% else %}delete_item{% endif %}"
             {% if child.parent.vars.data != null %}
                 data-token="{{ csrf_token('delete' ~ child.parent.vars.data.id) }}"
             {% endif %}>

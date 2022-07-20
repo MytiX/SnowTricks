@@ -15,7 +15,9 @@ class UserSettingsType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('pseudo', TextType::class)
+            ->add('pseudo', TextType::class, [
+                'required' => true
+            ])
             ->add('profilePicture', ProfilePictureType::class, [
                 'label' => false,
                 'required' => false

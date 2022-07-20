@@ -9,7 +9,6 @@
 {% endblock %}
 
 {% block body %}
-
     <div class="container">
         <div class="row">
             <div class="col-12 pt-4">
@@ -41,8 +40,5 @@
 {% endblock %}
 
 {% block script %}
-    {% if app.request.attributes.get('_route') == 'app_edit_tricks' %}
-        <script src="{{ asset('assets/js/tricks_media.js') }}"></script>
-    {% endif %}
     <script src="{{ asset('assets/js/tricks_form.js') }}"></script>
 {% endblock %}

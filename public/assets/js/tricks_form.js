@@ -6,17 +6,20 @@ window.addEventListener("DOMContentLoaded", (event) => {
         })
     }
 
-    let allEmptyInput = document.querySelectorAll('.empty-input')
-
-    allEmptyInput.forEach(emptyInput => {
-        emptyInput.parentElement.remove()
-    })
-
-    let tricksEmpty = document.getElementById('tricks_medias')
-
-    if (tricksEmpty != null) {
-        tricksEmpty.parentElement.remove()
+    const removeAllEmptyInput = () => {
+        let allEmptyInput = document.querySelectorAll('.empty-input')
+    
+        allEmptyInput.forEach(emptyInput => {
+            emptyInput.parentElement.remove()
+        })
+    
+        let tricksEmpty = document.getElementById('tricks_medias')
+    
+        if (tricksEmpty != null) {
+            tricksEmpty.parentElement.remove()
+        }
     }
+
     
     var stringToHTML = function (str, count) {
         str = str.replace(/__name__/g, count)
@@ -53,7 +56,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
     }
     
     const getAllBtnDelete = function () {
-        let allBtnDelete = document.querySelectorAll('.delete_media')
+        let allBtnDelete = document.querySelectorAll('.delete_media');
         allBtnDelete.forEach(btnDelete => {
             btnDelete.addEventListener('click', (event) => {
                 event.preventDefault()
@@ -68,10 +71,13 @@ window.addEventListener("DOMContentLoaded", (event) => {
                         }).then(
                             response => response.json()
                         ).then(data => {
-                            if (data.success)
-                                btnDelete.parentElement.parentElement.parentElement.remove()
-                            else
+                            if (data.success) {
+                                btnDelete.parentElement.parentElement.parentElement.remove();
+                                alertMessageSuccess("L'élément a été supprimé avec succès");
+                            }
+                            else {
                                 alert(data.error)
+                            }
                         }).catch(e => alert(e))
                     }                    
             })
@@ -145,27 +151,31 @@ window.addEventListener("DOMContentLoaded", (event) => {
                 if (valueInput == 'picture') {
                     pictureInput.getElementsByTagName('input')[0].setAttribute('required', 'required');
                     containerCollection.appendChild(pictureInput)
-                    embedInput.classList.add('d-none')
-                    embedInput.getElementsByTagName('input')[0].removeAttribute('required');
-                    containerCollection.appendChild(embedInput)
                 }
 
                 if (valueInput == 'embed') {
                     embedInput.getElementsByTagName('input')[0].setAttribute('required', 'required');
                     containerCollection.appendChild(embedInput)
-                    pictureInput.classList.add('d-none')
-                    pictureInput.getElementsByTagName('input')[0].removeAttribute('required');
-                    containerCollection.appendChild(pictureInput)
                 }
 
-                containerCollection.appendChild(embedInput);
-                containerCollection.appendChild(pictureInput);
                 choiceInput.remove();
                 getDeleteItem();
                 getAllHeaderCheckbox();
             })
 
             containerCollection.dataset.index++;
+    };
+
+    const alertMessageSuccess = (message) => {
+        let alertModal = document.getElementById("alert-js");
+
+        alertModal.innerHTML = message;
+
+        alertModal.classList.remove("d-none");
+
+        setTimeout(() => {
+            alertModal.classList.add("d-none");
+        }, 5000);
     };
 
     document.querySelectorAll('#add_item_media').forEach(btn => {
@@ -178,6 +188,8 @@ window.addEventListener("DOMContentLoaded", (event) => {
     getAllHeaderCheckbox();
     removeChoiceType();
     getAllBtnDelete();
+    removeAllEmptyInput();
+    getDeleteItem();
 });
 
 

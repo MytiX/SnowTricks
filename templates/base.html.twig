@@ -17,6 +17,7 @@
 <body>
     {% include "components/_navbar.html.twig" %}
     <main id="main-container" class="container-fluid">
+            <div class="col-3 alert alert-success d-none" role="alert" id="alert-js"></div>
         {% block body %}{% endblock %}
     </main>
     {% include "components/_footer.html.twig" %}

@@ -5,13 +5,11 @@ namespace App\Media\Form;
 use App\Media\Entity\Picture;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class PictureType extends AbstractType
 {
@@ -20,6 +18,16 @@ class PictureType extends AbstractType
         $builder
             ->add('file', FileType::class, [
                 'label' => 'Image',
+                'constraints' => [
+                    new File([
+                        'maxSize' => '500k',
+                        'mimeTypes' => [
+                            'image/jpeg',
+                            'image/png',
+                        ],
+                        'mimeTypesMessage' => "L'image téléverser doit être au format png ou jpg"
+                    ])
+                ]
             ])
         ;
     }
