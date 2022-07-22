@@ -343,7 +343,7 @@ a {
     z-index: 1000;
 }
 
-#alert-js {
+.alert-js {
     position: fixed;
     top: 85px;
     right: 16px;

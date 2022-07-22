@@ -76,9 +76,11 @@ window.addEventListener("DOMContentLoaded", (event) => {
                                 alertMessageSuccess("L'élément a été supprimé avec succès");
                             }
                             else {
-                                alert(data.error)
+                                alertMessageError(data.error);
                             }
-                        }).catch(e => alert(e))
+                        }).catch(e => {
+                            console.log(e);
+                        })
                     }                    
             })
         })
@@ -167,7 +169,19 @@ window.addEventListener("DOMContentLoaded", (event) => {
     };
 
     const alertMessageSuccess = (message) => {
-        let alertModal = document.getElementById("alert-js");
+        let alertModal = document.getElementById("alert-js-success");
+
+        alertModal.innerHTML = message;
+
+        alertModal.classList.remove("d-none");
+
+        setTimeout(() => {
+            alertModal.classList.add("d-none");
+        }, 5000);
+    };
+
+    const alertMessageError = (message) => {
+        let alertModal = document.getElementById("alert-js-error");
 
         alertModal.innerHTML = message;
 

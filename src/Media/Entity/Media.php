@@ -31,7 +31,7 @@ abstract class Media
     #[ORM\JoinColumn(nullable: true)]
     private $tricks;
 
-    #[ORM\OneToOne(targetEntity: User::class, inversedBy: "profilePicture", cascade: ["persist", "remove"])]
+    #[ORM\OneToOne(targetEntity: User::class, inversedBy: "profilePicture", cascade: ["persist"])]
     #[ORM\JoinColumn(nullable: true)]
     private $user;
 

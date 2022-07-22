@@ -27,7 +27,7 @@ class PictureType extends AbstractType
                         ],
                         'mimeTypesMessage' => "L'image téléverser doit être au format png ou jpg"
                     ])
-                ]
+                ],
             ])
         ;
     }

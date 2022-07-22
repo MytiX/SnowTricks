@@ -12,13 +12,21 @@
     <div class="container">
         <div class="row">
             <div class="col-12 pt-4">
-                {% if tricks.id is defined %}
-                    <a href="{{ path('app_tricks_detail', {slug:tricks.slug}) }}" class="btn btn-secondary mb-3">Voir le tricks</a>
-                {% endif %}
                 {{ form_start(form) }}
-                    {{ form_row(form.name, { 'label': 'Nom de la figure' }) }}
-                    {{ form_row(form.description, { 'label': 'Description' }) }}
-                    {{ form_row(form.group_stunt, { 'label': 'Type de tricks' }) }}
+
+                    {% if tricks.id is defined %}
+                        <div class="d-flex align-items-center justify-content-between mb-3">
+                            <h1>{{tricks.name}}</h1> 
+                            <a href="{{ path('app_tricks_detail', {slug:tricks.slug}) }}" class="btn btn-secondary mb-3">Voir le tricks</a>
+                        </div>
+                    {% endif %}
+
+                    {% if app.request.attributes.get('_route') == 'app_add_tricks' or app.user.id == tricks.user.id %}
+                        {{ form_row(form.name, { 'label': 'Nom de la figure' }) }}
+                        {{ form_row(form.description, { 'label': 'Description' }) }}
+                        {{ form_row(form.group_stunt, { 'label': 'Type de tricks' }) }}                      
+                    {% endif %}
+                    
                     <div id="container-medias" data-index="{{form.medias|length > 0 ? form.medias|last.vars.name + 1 : 0}}" data-prototype="{{ form_widget(form.medias.vars.prototype)|e('html_attr') }}">
                         <label class="mb-3">Médias</label>
                         {% for media in form.medias %}

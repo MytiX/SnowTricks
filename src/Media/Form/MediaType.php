@@ -34,11 +34,11 @@ class MediaType extends AbstractType implements DataMapperInterface
             ])
             ->add('picture', PictureType::class, [
                 'label' => false,
-                'required' => false
+                'required' => true
             ])
             ->add('embed', EmbedType::class, [
                 'label' => false,
-                'required' => false
+                'required' => true
             ])
             ->setDataMapper($this)
         ;

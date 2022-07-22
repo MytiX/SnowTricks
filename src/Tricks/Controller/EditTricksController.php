@@ -2,14 +2,17 @@
 
 namespace App\Tricks\Controller;
 
+use App\Entity\User;
 use App\Media\Entity\Media;
 use App\Media\Entity\Picture;
+use App\Media\Form\MediaType;
 use App\Tricks\Entity\Tricks;
 use App\Tricks\Form\TricksType;
 use App\Media\Uploads\UploadFile;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Media\Repository\MediaRepository;
 use App\Tricks\Repository\TricksRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -33,9 +36,9 @@ class EditTricksController extends AbstractController
             throw new NotFoundHttpException();
         }
 
-        if ('app_edit_tricks' === $request->attributes->get('_route')) {
-            $this->denyAccessUnlessGranted('CAN_EDIT', $tricks, 'Vous ne pouvez pas accéder à cette ressource');
-        }
+        // if ('app_edit_tricks' === $request->attributes->get('_route')) {
+        //     $this->denyAccessUnlessGranted('CAN_EDIT', $tricks, 'Vous ne pouvez pas accéder à cette ressource');
+        // }
 
         $form = $this->createForm(TricksType::class, $tricks);
         
@@ -57,20 +60,21 @@ class EditTricksController extends AbstractController
                         /** @var Media $media */
                         if (null == $media->getTricks()) {
                             $media->setTricks($tricks);
+                            $media->setUser($this->getUser());
                             $em->persist($media);
                         }
                     }
                     $tricks->preUpdate();
                 }
             }
-            
+
             $em->flush();
-            
+
             if ($request->attributes->get('_route') == 'app_edit_tricks') {
                 $this->addFlash('success', 'Votre tricks à été modifié avec succès');
-            } else {
-                $this->addFlash('success', 'Votre tricks à été crée avec succès');
             }
+
+            $this->addFlash('success', 'Votre tricks à été crée avec succès');
 
             return $this->redirectToRoute('app_home');
         }

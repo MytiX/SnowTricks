@@ -2,6 +2,7 @@
 
 namespace App\Media\Controller;
 
+use App\Entity\User;
 use App\Media\Entity\Media;
 use App\Media\Entity\Picture;
 use Doctrine\ORM\EntityManagerInterface;
@@ -22,22 +23,27 @@ class MediaController extends AbstractController
             return new JsonResponse('Bad request', 400);
         }
         
-        if (true || $this->isCsrfTokenValid('delete'.$id, $token)) {
-            if (null === $media = $mediaRepository->find($id)) {
-                return new JsonResponse(['error' => 'Resource Not Found'], 404);
-            }
-
-            $this->denyAccessUnlessGranted('CAN_DELETE', $media, 'Vous ne pouvez pas accéder à cette ressource');
-            
-            $tricks = $media->getTricks();
-            $tricks->preUpdate();
-            
-            $em->remove($media);
-            $em->flush();
-
-            return new JsonResponse(['success' => 1]);
-        } else {
+        if (!$this->isCsrfTokenValid('delete'.$id, $token)) {
             return new JsonResponse(['error' => 'Token Invalid'], 400);
+        } 
+
+        if (null === $media = $mediaRepository->find($id)) {
+            return new JsonResponse(['error' => 'Resource Not Found'], 404);
         }
+
+        /** @var User $user */
+        $user = $this->getUser();
+
+        if ($user->getId() != $media->getTricks()->getUser()->getId()) {
+            return new JsonResponse(['error' => 'Vous ne pouvez pas supprimer ce média.'], 403);
+        }
+        
+        $tricks = $media->getTricks();
+        $tricks->preUpdate();
+        
+        $em->remove($media);
+        $em->flush();
+
+        return new JsonResponse(['success' => 1]);
     }
 }

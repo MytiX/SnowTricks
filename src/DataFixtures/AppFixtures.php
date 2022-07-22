@@ -67,17 +67,29 @@ class AppFixtures extends Fixture
             ->setTokenAuth(sha1('token'.$user->getEmail()))
             ->setActive(1)
             ->setProfilePicture($profilePicture);
+
+            $user2 = new User();
+            $user2
+                ->setEmail("test2@test.fr")
+                ->setPassword($this->passwordHasher->hashPassword($user, 'testtest'))
+                ->setPseudo('José')
+                ->setTokenAuth(sha1('token'.$user->getEmail()))
+                ->setActive(1)
+                ->setProfilePicture($profilePicture);
         
         $manager->persist($user);            
+        $manager->persist($user2);            
             
         for ($t=0; $t < 10; $t++) {  
             $embed = new Embed();
             $picture = new Picture();
 
-            $embed->setEmbedContent('<iframe width="560" height="315" src="https://www.youtube.com/embed/SQyTWk7OxSI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>');
+            $embed->setEmbedContent('<iframe width="560" height="315" src="https://www.youtube.com/embed/SQyTWk7OxSI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>')
+                ->setUser($user);
     
             $picture->setFilePath('uploads/'.$tricksImage[$t])
-                    ->setHeader(true);
+                ->setHeader(true)
+                ->setUser($user);
 
             $tricks = new Tricks(); 
             $tricks
